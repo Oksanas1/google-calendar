@@ -32,20 +32,20 @@ textarea {
 
 .create-event-btn {
   margin-left: 50px;
-  padding: 20px 30px;
+  padding: 10px 15px;
   display: flex;
   align-items: center;
-  border-radius: 35px;
-  -webkit-box-shadow: -1px 2px 15px -4px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: -1px 2px 15px -4px rgba(0, 0, 0, 0.75);
-  box-shadow: -1px 2px 15px -4px rgba(0, 0, 0, 0.75);
-  font-size: 23px;
+  border-radius: 17px;
+  -webkit-box-shadow: -1px 2px 7px -4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 2px 7px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 2px 7px -4px rgba(0, 0, 0, 0.75);
+  font-size: 20px;
   color: #000000;
 }
 
 .create-event-btn__icon {
   margin-right: 15px;
-  font-size: 43px;
+  font-size: 20px;
 }
 
 .icon-button {
@@ -94,29 +94,30 @@ textarea {
   margin-left: 60px;
 }
 .navigation__today-btn {
-  padding: 30px;
+  padding: 15px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 27px;
+  font-size: 18px;
   font-weight: 500;
 }
 .navigation__nav-icon {
-  font-size: 30px;
+  font-size: 20px;
 }
 .navigation__prev {
-  margin-left: 75px;
+  margin-left: 40px;
 }
 .navigation__next {
-  margin-left: 50px;
+  margin-left: 20px;
 }
 .navigation__displayed-month {
-  margin-left: 75px;
-  font-size: 53px;
+  margin-left: 40px;
+  font-size: 20px;
   color: #000000;
 }
 
 .calendar {
-  overflow: scroll;
+  overflow-x: auto;
+  overflow-y: scroll;
 }
 .calendar__header {
   display: flex;
@@ -127,10 +128,7 @@ textarea {
   width: 140px;
   padding: 5px;
   text-align: center;
-}
-.calendar__time-zon span {
-  display: inline-block;
-  margin-top: 100%;
+  align-content: flex-end;
   color: #888c92;
 }
 .calendar__week-container {
@@ -147,7 +145,7 @@ textarea {
   flex: 1;
 }
 .calendar__time-slot {
-  height: 120px;
+  height: 60px;
   border-bottom: 1px solid #888c92;
   border-left: 1px solid #888c92;
   position: relative;
@@ -165,9 +163,9 @@ textarea {
 }
 .day-label__day-number {
   display: inline-block;
-  margin: 5px auto 15px;
-  width: 100px;
-  line-height: 100px;
+  margin: 5px auto;
+  width: 50px;
+  line-height: 50px;
   color: #000000;
 }
 
@@ -179,14 +177,22 @@ textarea {
   background: #1973e9;
   color: #ffffff;
 }
+.today__time::before {
+  content: "";
+  position: absolute;
+  top: var(--today__timeBeforeTop);
+  right: 0;
+  left: 0;
+  border-top: 2px solid red;
+}
 
 .time-slot {
-  height: 120px;
+  height: 60px;
   text-align: center;
 }
 .time-slot__time {
   display: inline-block;
-  margin-top: 120px;
+  margin-top: 60px;
   transform: translateY(-50%);
   color: #888c92;
 }
@@ -202,21 +208,23 @@ textarea {
 }
 
 .event-form__text {
-  width: 860px;
-  font-size: 35px;
+  width: 430px;
+  font-size: 20px;
   color: #000000;
-  border-bottom: 5px solid #1973e9;
+}
+.event-form__text:focus {
+  border-bottom: 2px solid #1973e9;
 }
 .event-form__time {
-  margin-top: 180px;
-  width: 950px;
+  margin-top: 30px;
+  width: 475px;
   text-align: left;
 }
 .event-form .fa-clock {
   height: 40px;
 }
 .event-form__date {
-  margin-left: 60px;
+  margin-left: 30px;
   line-height: 40px;
 }
 .event-form__date-start {
@@ -226,25 +234,25 @@ textarea {
   line-height: 40px;
 }
 .event-form__textarea {
-  margin-left: 60px;
-  width: 860px;
-  height: 400px;
-  font-size: 35px;
+  margin-left: 30px;
+  width: 430px;
+  height: 200px;
+  font-size: 20px;
 }
 .event-form__textarea::placeholder {
-  line-height: 400px;
-  font-size: 35px;
+  line-height: 200px;
+  font-size: 18px;
   color: #888c92;
 }
 .event-form__submit-btn {
   display: block;
   margin: 20px 0 0 auto;
-  width: 285px;
-  height: 80px;
+  width: 140px;
+  height: 40px;
   border-radius: 15px;
   background: #1973e9;
   color: #ffffff;
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -256,7 +264,7 @@ textarea {
   border-radius: 15px;
   padding: 5px;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 /*# sourceMappingURL=styles.css.map */

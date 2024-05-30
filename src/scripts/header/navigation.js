@@ -1,9 +1,7 @@
 import { getItem, setItem } from '../common/storage.js';
 import { renderWeek } from '../calendar/calendar.js';
 import { renderHeader } from '../calendar/header.js';
-import { getStartOfWeek, getDisplayedMonth, generateWeekRange } from '../common/time.utils.js';
-
-const todayButtonElement = document.querySelector('.navigation__today-btn');
+import { getStartOfWeek, getDisplayedMonth } from '../common/time.utils.js';
 
 const navElem = document.querySelector('.navigation');
 const displayedMonthElem = document.querySelector(
@@ -11,14 +9,10 @@ const displayedMonthElem = document.querySelector(
 );
 
 function renderCurrentMonth() {
-  // отрисовать месяц, к которому относиться текущая неделя (getDisplayedMonth)
-  // вставить в .navigation__displayed-month
   displayedMonthElem.textContent = getDisplayedMonth(new Date(getItem('displayedWeekStart')));
 }
 
 const onChangeWeek = (event) => {
-  // при переключении недели обновите displayedWeekStart в storage
-  // и перерисуйте все необходимые элементы страницы (renderHeader, renderWeek, renderCurrentMonth)
   if (event.target.className === 'navigation') return;
 
   const memorySartWeek = new Date(getItem('displayedWeekStart'));
@@ -31,12 +25,12 @@ const onChangeWeek = (event) => {
     case 'prev':
       setItem(
         'displayedWeekStart',
-        new Date(memorySartWeek.setDate(memorySartWeek.getDate() - 7)));
+        getStartOfWeek(new Date(memorySartWeek.setDate(memorySartWeek.getDate() - 1))));
       break;
     case 'next':
       setItem(
         'displayedWeekStart',
-        new Date(memorySartWeek.setDate(memorySartWeek.getDate() + 8)));
+        getStartOfWeek(new Date(memorySartWeek.setDate(memorySartWeek.getDate() + 8))));
       break;
     default:
       setItem(

@@ -7,10 +7,6 @@ const calendarHeaderElement = document.querySelector('.calendar__header');
 const createNewEventsButtonElement = document.querySelector('.create-event-btn');
 
 export const renderHeader = () => {
-  // на основе displayedWeekStart из storage с помощью generateWeekRange сформируйте массив дней текущей недели
-  // на основе полученного массива сформируйте разметку в виде строки - 7 дней (день недели и число в месяце)
-  // полученную разметку вставить на страницу с помощью innerHTML в .calendar__header
-  // в дата атрибуте каждой ячейки должно хранить для какого часа эта ячейка
   const numberOfDaysOfWeek = generateWeekRange(getItem('displayedWeekStart'));
   let dateOfWeek = '';
   const todayDateSrting = new Intl.DateTimeFormat('en-US').format(new Date());

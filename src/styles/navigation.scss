@@ -2,28 +2,28 @@
   margin-left: 60px;
 
   &__today-btn {
-    padding: 30px;
+    padding: 15px;
     border-radius: 8px;
     border: 1px solid #ccc;
-    font-size: 27px;
+    font-size: 18px;
     font-weight: 500;
   }
 
   &__nav-icon {
-    font-size: 30px;
+    font-size: 20px;
   }
 
   &__prev {
-    margin-left: 75px;
+    margin-left: 40px;
   }
 
   &__next {
-    margin-left: 50px;
+    margin-left: 20px;
   }
 
   &__displayed-month {
-    margin-left: 75px;
-    font-size: 53px;
+    margin-left: 40px;
+    font-size: 20px;
     color: $text-color-black;
   }
 }

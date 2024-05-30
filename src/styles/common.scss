@@ -5,20 +5,20 @@
 
 .create-event-btn {
   margin-left: 50px;
-  padding: 20px 30px;
+  padding: 10px 15px;
   display: flex;
   align-items: center;
-  border-radius: 35px;
-  -webkit-box-shadow: -1px 2px 15px -4px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: -1px 2px 15px -4px rgba(0, 0, 0, 0.75);
-  box-shadow: -1px 2px 15px -4px rgba(0, 0, 0, 0.75);
-  font-size: 23px;
+  border-radius: 17px;
+  -webkit-box-shadow: -1px 2px 7px -4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 2px 7px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 2px 7px -4px rgba(0, 0, 0, 0.75);
+  font-size: 20px;
   color: $text-color-black;
 }
 
 .create-event-btn__icon {
   margin-right: 15px;
-  font-size: 43px;
+  font-size: 20px;
 }
 
 .icon-button {

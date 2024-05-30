@@ -1,6 +1,6 @@
-// стили сетки календаря и заголовка календаря с днями недели
 .calendar {
-  overflow: scroll;
+  overflow-x: auto;
+  overflow-y: scroll;
 
   &__header {
     display: flex;
@@ -12,12 +12,8 @@
     width: 140px;
     padding: $uinix;
     text-align: center;
-
-    span {
-      display: inline-block;
-      margin-top: 100%;
-      color: $text-color-grey;
-    }
+    align-content: flex-end;
+    color: $text-color-grey;
   }
 
   &__week-container {
@@ -58,9 +54,9 @@
 
   &__day-number {
     display: inline-block;
-    margin: $uinix auto 15px;
-    width: 100px;
-    line-height: 100px;
+    margin: $uinix auto;
+    width: 50px;
+    line-height: 50px;
     color: $text-color-black;
   }
 }
@@ -74,5 +70,14 @@
     border-radius: 50%;
     background: $color-blue;
     color: $text-color-white;
+  }
+
+  &__time::before {
+    content: '';
+    position: absolute;
+    top: var(--today__timeBeforeTop);
+    right: 0;
+    left: 0;
+    border-top: 2px solid red;
   }
 }

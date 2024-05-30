@@ -12,15 +12,18 @@
 
 .event-form {
   &__text {
-    width: 860px;
-    font-size: 35px;
+    width: 430px;
+    font-size: 20px;
     color: $text-color-black;
-    border-bottom: 5px solid $color-blue;
+
+    &:focus {
+      border-bottom: 2px solid $color-blue;
+    }
   }
 
   &__time {
-    margin-top: 180px;
-    width: 950px;
+    margin-top: 30px;
+    width: 475px;
     text-align: left;
   }
 
@@ -29,7 +32,7 @@
   }
 
   &__date {
-    margin-left: 60px;
+    margin-left: 30px;
     line-height: 40px;
   }
 
@@ -42,14 +45,14 @@
   }
 
   &__textarea {
-    margin-left: 60px;
-    width: 860px;
-    height: 400px;
-    font-size: 35px;
+    margin-left: 30px;
+    width: 430px;
+    height: 200px;
+    font-size: 20px;
 
     &::placeholder {
-      line-height: 400px;
-      font-size: 35px;
+      line-height: 200px;
+      font-size: 18px;
       color: $text-color-grey;
     }
   }
@@ -57,12 +60,12 @@
   &__submit-btn {
     display: block;
     margin: 20px 0 0 auto;
-    width: 285px;
-    height: 80px;
+    width: 140px;
+    height: 40px;
     border-radius: 15px;
     background: $color-blue;
     color: $text-color-white;
-    font-size: 25px;
+    font-size: 20px;
     text-align: center;
   }
 }
