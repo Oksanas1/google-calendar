@@ -1,0 +1,29 @@
+.navigation {
+  margin-left: 60px;
+
+  &__today-btn {
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 27px;
+    font-weight: 500;
+  }
+
+  &__nav-icon {
+    font-size: 30px;
+  }
+
+  &__prev {
+    margin-left: 75px;
+  }
+
+  &__next {
+    margin-left: 50px;
+  }
+
+  &__displayed-month {
+    margin-left: 75px;
+    font-size: 53px;
+    color: $text-color-black;
+  }
+}

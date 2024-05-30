@@ -1,0 +1,262 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+}
+
+button,
+input,
+textarea {
+  border: 0;
+  padding: 0;
+  background: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
+.page {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  padding: 15px 0;
+}
+
+.create-event-btn {
+  margin-left: 50px;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  border-radius: 35px;
+  -webkit-box-shadow: -1px 2px 15px -4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 2px 15px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 2px 15px -4px rgba(0, 0, 0, 0.75);
+  font-size: 23px;
+  color: #000000;
+}
+
+.create-event-btn__icon {
+  margin-right: 15px;
+  font-size: 43px;
+}
+
+.icon-button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal__content {
+  background: #fff;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(204, 204, 204, 0.2705882353);
+  z-index: 10;
+}
+
+.popup__content {
+  position: absolute;
+  background: #fff;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+.navigation {
+  margin-left: 60px;
+}
+.navigation__today-btn {
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 27px;
+  font-weight: 500;
+}
+.navigation__nav-icon {
+  font-size: 30px;
+}
+.navigation__prev {
+  margin-left: 75px;
+}
+.navigation__next {
+  margin-left: 50px;
+}
+.navigation__displayed-month {
+  margin-left: 75px;
+  font-size: 53px;
+  color: #000000;
+}
+
+.calendar {
+  overflow: scroll;
+}
+.calendar__header {
+  display: flex;
+  border-top: 1px solid #888c92;
+  border-bottom: 1px solid #888c92;
+}
+.calendar__time-zon {
+  width: 140px;
+  padding: 5px;
+  text-align: center;
+}
+.calendar__time-zon span {
+  display: inline-block;
+  margin-top: 100%;
+  color: #888c92;
+}
+.calendar__week-container {
+  display: flex;
+}
+.calendar__time-scale {
+  width: 140px;
+}
+.calendar__week {
+  flex: 1;
+  display: flex;
+}
+.calendar__day {
+  flex: 1;
+}
+.calendar__time-slot {
+  height: 120px;
+  border-bottom: 1px solid #888c92;
+  border-left: 1px solid #888c92;
+  position: relative;
+}
+
+.day-label {
+  margin-top: 35px;
+  flex: 1;
+  text-align: center;
+}
+.day-label__day-name {
+  display: inline-block;
+  width: 100%;
+  color: #888c92;
+}
+.day-label__day-number {
+  display: inline-block;
+  margin: 5px auto 15px;
+  width: 100px;
+  line-height: 100px;
+  color: #000000;
+}
+
+.today__day-name {
+  color: #6495ed;
+}
+.today__day-number {
+  border-radius: 50%;
+  background: #1973e9;
+  color: #ffffff;
+}
+
+.time-slot {
+  height: 120px;
+  text-align: center;
+}
+.time-slot__time {
+  display: inline-block;
+  margin-top: 120px;
+  transform: translateY(-50%);
+  color: #888c92;
+}
+
+.create-event {
+  text-align: right;
+}
+.create-event__close-btn {
+  width: 25px;
+  line-height: 25px;
+  transform: rotate(45deg);
+  color: #888c92;
+}
+
+.event-form__text {
+  width: 860px;
+  font-size: 35px;
+  color: #000000;
+  border-bottom: 5px solid #1973e9;
+}
+.event-form__time {
+  margin-top: 180px;
+  width: 950px;
+  text-align: left;
+}
+.event-form .fa-clock {
+  height: 40px;
+}
+.event-form__date {
+  margin-left: 60px;
+  line-height: 40px;
+}
+.event-form__date-start {
+  line-height: 40px;
+}
+.event-form__date-end {
+  line-height: 40px;
+}
+.event-form__textarea {
+  margin-left: 60px;
+  width: 860px;
+  height: 400px;
+  font-size: 35px;
+}
+.event-form__textarea::placeholder {
+  line-height: 400px;
+  font-size: 35px;
+  color: #888c92;
+}
+.event-form__submit-btn {
+  display: block;
+  margin: 20px 0 0 auto;
+  width: 285px;
+  height: 80px;
+  border-radius: 15px;
+  background: #1973e9;
+  color: #ffffff;
+  font-size: 25px;
+  text-align: center;
+}
+
+.event {
+  position: absolute;
+  width: 80%;
+  background: #6495ed;
+  z-index: 5;
+  border-radius: 15px;
+  padding: 5px;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+/*# sourceMappingURL=styles.css.map */

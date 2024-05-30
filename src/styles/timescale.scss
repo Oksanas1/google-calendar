@@ -1,0 +1,12 @@
+// стили боковой временной шкалы
+.time-slot {
+  height: $height-box;
+  text-align: center;
+
+  &__time {
+    display: inline-block;
+    margin-top: $height-box;
+    transform: translateY(-50%);
+    color: $text-color-grey;
+  }
+}

@@ -1,0 +1,18 @@
+import { createNumbersArray } from '../common/createNumbersArray.js';
+
+const createTimeElement = number => {
+  const hour = (number < 10) ? `0${number}` : number;
+
+  return `<div class="time-slot">
+    <span class="time-slot__time" data-time="${number}">${hour}:00</sapn>
+  </div>`;
+}
+
+export const renderTimescale = () => {
+  // ф-ция должна генерировать разметку для боковой шкалы времени (24 часа)
+  // полученную разметку вставьте на страницу с помощью innerHTML в .calendar__time-scale
+  const timeNumbers = createNumbersArray(1,24);
+  const calndarTimeScaleElement = document.querySelector('.calendar__time-scale');
+
+  calndarTimeScaleElement.innerHTML = timeNumbers.map(hour => createTimeElement(hour)).join('');
+};

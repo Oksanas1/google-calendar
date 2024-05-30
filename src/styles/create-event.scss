@@ -1,0 +1,68 @@
+// стили формы события внутри модального окна
+.create-event {
+  text-align: right;
+
+  &__close-btn {
+    width: 25px;
+    line-height: 25px;
+    transform: rotate(45deg);
+    color: $text-color-grey;
+  }
+}
+
+.event-form {
+  &__text {
+    width: 860px;
+    font-size: 35px;
+    color: $text-color-black;
+    border-bottom: 5px solid $color-blue;
+  }
+
+  &__time {
+    margin-top: 180px;
+    width: 950px;
+    text-align: left;
+  }
+
+  .fa-clock {
+    height: 40px;
+  }
+
+  &__date {
+    margin-left: 60px;
+    line-height: 40px;
+  }
+
+  &__date-start {
+    line-height: 40px;
+  }
+
+  &__date-end {
+    line-height: 40px;
+  }
+
+  &__textarea {
+    margin-left: 60px;
+    width: 860px;
+    height: 400px;
+    font-size: 35px;
+
+    &::placeholder {
+      line-height: 400px;
+      font-size: 35px;
+      color: $text-color-grey;
+    }
+  }
+
+  &__submit-btn {
+    display: block;
+    margin: 20px 0 0 auto;
+    width: 285px;
+    height: 80px;
+    border-radius: 15px;
+    background: $color-blue;
+    color: $text-color-white;
+    font-size: 25px;
+    text-align: center;
+  }
+}
