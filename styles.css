@@ -166,7 +166,12 @@ textarea {
   margin: 5px auto;
   width: 50px;
   line-height: 50px;
+}
+.day-label__day-number_next-color {
   color: #000000;
+}
+.day-label__day-number_prew-color {
+  color: #888c92;
 }
 
 .today__day-name {

@@ -57,7 +57,14 @@
     margin: $uinix auto;
     width: 50px;
     line-height: 50px;
-    color: $text-color-black;
+
+    &_next-color {
+      color: $text-color-black;
+    }
+
+    &_prew-color {
+      color: $text-color-grey;
+    }
   }
 }
 
