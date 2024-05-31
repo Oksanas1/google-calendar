@@ -1,7 +1,18 @@
-## Calendar start code
+# Calendar
 
-### To start:
+### [Site link](https://oksanas1.github.io/google-calendar/)
 
-1. clone the repo
-2. install LTS [NodeJS](https://nodejs.org/en/)
-3. run `npm install` to to use eslint in the project
+Calendar static page
+
+### The tech stack is:
+
+- [HTML5](https://en.wikipedia.org/wiki/HTML5)
+- [CSS3](https://en.wikipedia.org/wiki/CSS)
+- [Flexbox](https://en.wikipedia.org/wiki/CSS_Flexible_Box_Layout)
+- [Sass (Scss)](https://sass-lang.com/)
+- [BEM methodology](https://en.bem.info/methodology/)
+- [js](https://developer.mozilla.org/)
+
+### Authour
+
+- Oksana Khainus
