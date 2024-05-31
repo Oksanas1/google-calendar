@@ -6,6 +6,10 @@
     display: flex;
     border-top: 1px solid $color-grey;
     border-bottom: 1px solid $color-grey;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #ffffff;
   }
 
   &__time-zon {

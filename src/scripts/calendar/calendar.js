@@ -4,7 +4,7 @@ import { renderEvents } from '../events/events.js';
 import { createNumbersArray } from '../common/createNumbersArray.js';
 
 const generateDay = () => {
-  const timeNumbers = createNumbersArray(0,23);
+  const timeNumbers = createNumbersArray(0, 23);
 
   return timeNumbers
     .map(hour => `<div class="calendar__time-slot" data-time="${hour}"></div>`)
