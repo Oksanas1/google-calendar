@@ -14,13 +14,13 @@ const createNameOfDayElement = (nameOfDay, dayOfWeek) => {
     result = `
       <div class="calendar__day-label day-label">
         <span class="day-label__day-name">${nameOfDay}</span>
-        <span class="day-label__day-number_next-color">${dayOfWeek.getDate()}</span>
+        <span class="day-label__day-number day-label__day-number_next-color">${dayOfWeek.getDate()}</span>
       </div>`
   } else if (dayOfWeek < today) {
     result = `
       <div class="calendar__day-label day-label">
         <span class="day-label__day-name">${nameOfDay}</span>
-        <span class="day-label__day-number_prew-color">${dayOfWeek.getDate()}</span>
+        <span class="day-label__day-number day-label__day-number_prew-color">${dayOfWeek.getDate()}</span>
       </div>`;
   } else {
     result = `
