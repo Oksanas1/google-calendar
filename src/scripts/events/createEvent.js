@@ -22,11 +22,12 @@ function onCreateEvent(formData) {
   const events = getItem('events');
 
   events.push({
-    id: Math.random().toString().slice(2),
+    id: Math.random().toString(12).slice(2),
     title: formData.title,
     start: getDateTime(formData.date, formData.startTime),
     end: getDateTime(formData.date, formData.endTime),
     description: formData.description,
+    color: formData.color,
   });
 
   setItem('events', events);

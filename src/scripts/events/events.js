@@ -26,7 +26,7 @@ const createEventElement = (event) => {
   const newEventElement = document.createElement('div');
   newEventElement.classList.add('event');
   newEventElement.dataset.eventId = event.id;
-  newEventElement.setAttribute('style', `top: ${startEvent.getMinutes()}px; height: ${heightBlockEvent}px`)
+  newEventElement.setAttribute('style', `top: ${startEvent.getMinutes()}px; height: ${heightBlockEvent}px; background:${event.color};`)
 
   const eventTitle = document.createElement('h4');
   eventTitle.classList.add('event__title');
@@ -46,15 +46,15 @@ export const renderEvents = () => {
   const timeSlotsElements = Array.from(document.querySelectorAll('.calendar__time-slot'));
   timeSlotsElements.map(slot => slot. textContent = '');
 
-  const endWeekDay = new Date(getItem('displayedWeekStart'));
-  const startEndWeekDay = [getItem('displayedWeekStart'), new Date(endWeekDay.setDate(endWeekDay.getDate() + 7))];
+  const startWeekDay = new Date(getItem('displayedWeekStart'));
+  const endWeekDay = new Date(new Date(startWeekDay).setDate(startWeekDay.getDate() + 7));
   let eventStart = '';
 
   getItem('events')
     .filter(event => {
       eventStart = new Date(event.start);
       
-      return eventStart >= startEndWeekDay[0] && eventStart <= startEndWeekDay[1]})
+      return eventStart >= startWeekDay && eventStart < endWeekDay})
     .map(event => {
       const eventStart = new Date(event.start);
       const timeSlotElement = document.querySelector(`div[data-day="${eventStart.getDate()}"] div[data-time="${eventStart.getHours()}"]`);
@@ -66,11 +66,20 @@ export const renderEvents = () => {
 
 function onDeleteEvent() {
   const eventIdToDelete = +getItem('eventIdToDelete');
-  setItem('events', getItem('events').filter(event => event.id !== eventIdToDelete));
+
+  const newListEvents = getItem('events').filter(event => +event.id !== eventIdToDelete);
+
+  setItem('events', newListEvents);
 
   closePopup();
   renderEvents();
 }
+
+const onStorageChange = () => {
+  renderEvents();
+}
+
+document.addEventListener('storage', onStorageChange);
 
 deleteEventBtn.addEventListener('click', onDeleteEvent);
 weekElem.addEventListener('click', handleEventClick);

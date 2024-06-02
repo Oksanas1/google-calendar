@@ -60,6 +60,20 @@
     border: 1px solid #ccc;
     border-radius: 8px;
   }
+
+  &__button {
+    display: block;
+    width: 100%;
+    background: $color-blue;
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    color: $text-color-white;
+  }
+}
+
+.update-event-btn {
+  margin-top: 15px;
 }
 
 .hidden {

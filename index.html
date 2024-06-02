@@ -81,6 +81,12 @@
               placeholder="Description"
               class="event-form__field event-form__textarea"
             ></textarea>
+            <input
+              type="color"
+              name="color"
+              class="event-form__field event-form__color"
+              value="#6495ed"
+            />
             <button type="submit" class="event-form__submit-btn">Create</button>
           </form>
         </div>
@@ -89,7 +95,8 @@
     <div class="popup hidden overlay">
       <div class="popup__overlay"></div>
       <div class="popup__content">
-        <button class="delete-event-btn">Delete</button>
+        <button class="popup__button delete-event-btn">Delete</button>
+        <button class="popup__button update-event-btn">Change</button>
       </div>
     </div>
     <script src="src/scripts/index.js" type="module"></script>
