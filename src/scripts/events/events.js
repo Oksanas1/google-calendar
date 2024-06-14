@@ -7,7 +7,7 @@ const weekElem = document.querySelector('.calendar__week');
 function handleEventClick(event) {
   const targetObj = event.target;
   
-  if (!targetObj.classList.contains('event')){
+  if (!targetObj.className.includes('event')){
     return null;
   }
 
@@ -34,7 +34,7 @@ const createEventElement = (event) => {
 
   const eventTime = document.createElement('p');
   eventTime.classList.add('event__time');
-  eventTime.textContent = `${startEvent.getHours()}:${startEvent.getMinutes()} - ${endEvent.getHours()}:${endEvent.getMinutes()}`;
+  eventTime.textContent = `${new Date(startEvent).toString().slice(16, 21)} - ${new Date(endEvent).toString().slice(16, 21)}`;
 
   newEventElement.append(eventTitle);
   newEventElement.append(eventTime);

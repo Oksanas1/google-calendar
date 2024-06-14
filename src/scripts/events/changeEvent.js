@@ -24,25 +24,32 @@ async function onDeleteEvent() {
   };
 };
 
+const getEventTime = date => date.toString().slice(16, 21);
+
 function onChangeEvent() {
   const eventIdToDelete = getItem('eventIdToDelete');
-  const event = getItem('events').filter(event => event.id === eventIdToDelete);
+  const event = getItem('events').filter(event => event.id === eventIdToDelete)[0];
   const eventFormDataElem = Array.from(document.querySelectorAll('.event-form__field'));
+
+  const startEvent = new Date(event.start);
+
+  const month = startEvent.getMonth() + 1
+  event.day = `${startEvent.getFullYear()}-${(month < 10) ? '0' + month: month}-${startEvent.getDate()}`;
 
   eventFormDataElem.map(
     item => {
       switch(item.name) {
         case 'date':
-          item.value = event[0]['start'].slice(0, 10);
+          item.value = event.day;
           break;
         case 'startTime':
-          item.value = event[0]['start'].slice(11, 23);
+          item.value = getEventTime(startEvent);
           break;
         case 'endTime':
-          item.value = event[0]['end'].slice(11, 23);
+          item.value = getEventTime(new Date(event.end));
           break;
         default: 
-          item.value = event[0][item.name];
+          item.value = event[item.name];
       }
   });
   

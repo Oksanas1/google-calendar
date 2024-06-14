@@ -22,8 +22,8 @@ async function onCreateEvent(formData) {
     title: formData.title,
     description: formData.description,
     color: formData.color,
-    start: getDateTime(formData.date, formData.startTime),
-    end: getDateTime(formData.date, formData.endTime)
+    start: new Date(getDateTime(formData.date, formData.startTime)).getTime(),
+    end: new Date(getDateTime(formData.date, formData.endTime)).getTime(),
   };
 
   try {
