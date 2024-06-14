@@ -8,4 +8,8 @@
   color: $text-color-white;
   font-size: 18px;
   overflow: hidden;
+
+  &__time {
+    font-size: 14px;
+  }
 }

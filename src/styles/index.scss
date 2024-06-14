@@ -17,6 +17,11 @@ textarea {
   cursor: pointer;
 }
 
+h4,
+p {
+  margin: 0;
+}
+
 @import 'varibles.scss';
 @import 'page.scss';
 @import 'common.scss';

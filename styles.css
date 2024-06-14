@@ -4,7 +4,7 @@
 
 body {
   font-size: 18px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 button,
@@ -15,6 +15,11 @@ textarea {
   background: inherit;
   outline: none;
   cursor: pointer;
+}
+
+h4,
+p {
+  margin: 0;
 }
 
 .page {
@@ -201,7 +206,7 @@ textarea {
   color: #ffffff;
 }
 .today__time::before {
-  content: "";
+  content: '';
   position: absolute;
   top: var(--today__timeBeforeTop);
   right: 0;
@@ -293,6 +298,10 @@ textarea {
   color: #ffffff;
   font-size: 18px;
   overflow: hidden;
+}
+
+.event__time {
+  font-size: 14px;
 }
 
 /*# sourceMappingURL=styles.css.map */

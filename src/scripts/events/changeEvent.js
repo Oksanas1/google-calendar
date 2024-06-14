@@ -2,6 +2,7 @@ import { getItem, setItem } from '../common/storage.js';
 import { closePopup } from '../common/popup.js';
 import { deletEventInBase, getEventsLists } from '../common/getEway.js';
 import { openModal } from '../common/modal.js';
+import { renderEvents } from './events.js';
 
 function removeEventsFromCalendar() {
   getEventsLists().then(list => {
