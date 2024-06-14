@@ -1,22 +1,19 @@
 import { getItem, setItem } from '../common/storage.js';
+import { openPopup } from '../common/popup.js';
 import shmoment from '../common/shmoment.js';
-import { openPopup, closePopup } from '../common/popup.js';
 
 const weekElem = document.querySelector('.calendar__week');
-const deleteEventBtn = document.querySelector('.delete-event-btn');
 
 function handleEventClick(event) {
   const targetObj = event.target;
   
-  if (!targetObj.classList.contains('event')) return;
+  if (!targetObj.classList.contains('event')){
+    return null;
+  }
 
   openPopup(event.pageX, event.pageY);
   setItem('eventIdToDelete', targetObj.dataset.eventId);
 };
-
-function removeEventsFromCalendar() {
-  // ф-ция для удаления всех событий с календаря
-}
 
 const createEventElement = (event) => {
   const startEvent = new Date(event.start);
@@ -26,7 +23,10 @@ const createEventElement = (event) => {
   const newEventElement = document.createElement('div');
   newEventElement.classList.add('event');
   newEventElement.dataset.eventId = event.id;
-  newEventElement.setAttribute('style', `top: ${startEvent.getMinutes()}px; height: ${heightBlockEvent}px; background:${event.color};`)
+  newEventElement.setAttribute('style',`
+    top: ${startEvent.getMinutes()}px;
+    height: ${heightBlockEvent}px;
+    background:${event.color};`);
 
   const eventTitle = document.createElement('h4');
   eventTitle.classList.add('event__title');
@@ -45,15 +45,15 @@ const createEventElement = (event) => {
 export const renderEvents = () => {
   const timeSlotsElements = Array.from(document.querySelectorAll('.calendar__time-slot'));
   timeSlotsElements.map(slot => slot. textContent = '');
+  const eventList = getItem('events') || [];
 
   const startWeekDay = new Date(getItem('displayedWeekStart'));
-  const endWeekDay = new Date(new Date(startWeekDay).setDate(startWeekDay.getDate() + 7));
+  const endWeekDay = shmoment(startWeekDay).add('days', 7).result();
   let eventStart = '';
 
-  getItem('events')
+  eventList
     .filter(event => {
-      eventStart = new Date(event.start);
-      
+      eventStart = new Date(event.start);    
       return eventStart >= startWeekDay && eventStart < endWeekDay})
     .map(event => {
       const eventStart = new Date(event.start);
@@ -64,22 +64,9 @@ export const renderEvents = () => {
   );
 };
 
-function onDeleteEvent() {
-  const eventIdToDelete = +getItem('eventIdToDelete');
-
-  const newListEvents = getItem('events').filter(event => +event.id !== eventIdToDelete);
-
-  setItem('events', newListEvents);
-
-  closePopup();
-  renderEvents();
-}
-
 const onStorageChange = () => {
   renderEvents();
 }
 
-document.addEventListener('storage', onStorageChange);
-
-deleteEventBtn.addEventListener('click', onDeleteEvent);
+window.addEventListener('storage', onStorageChange);
 weekElem.addEventListener('click', handleEventClick);

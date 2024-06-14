@@ -12,7 +12,7 @@
 
 .event-form {
   &__text {
-    width: 430px;
+    width: 480px;
     font-size: 20px;
     color: $text-color-black;
 
@@ -23,7 +23,7 @@
 
   &__time {
     margin-top: 30px;
-    width: 475px;
+    width: 480px;
     text-align: left;
   }
 
@@ -42,6 +42,11 @@
 
   &__date-end {
     line-height: 40px;
+  }
+
+  .fa-align-left {
+    vertical-align: top;
+    margin-top: 90px;
   }
 
   &__textarea {

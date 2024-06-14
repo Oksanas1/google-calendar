@@ -2,35 +2,37 @@ import { getItem, setItem } from '../common/storage.js';
 import { renderWeek } from '../calendar/calendar.js';
 import { renderHeader } from '../calendar/header.js';
 import { getStartOfWeek, getDisplayedMonth } from '../common/time.utils.js';
+import shmoment from '../common/shmoment.js';
 
 const navElem = document.querySelector('.navigation');
-const displayedMonthElem = document.querySelector(
-  '.navigation__displayed-month'
-);
+const displayedMonthElem = document.querySelector('.navigation__displayed-month');
 
 function renderCurrentMonth() {
   displayedMonthElem.textContent = getDisplayedMonth(new Date(getItem('displayedWeekStart')));
 }
 
 const onChangeWeek = (event) => {
-  if (event.target.className === 'navigation') return;
+  const clickedElement = event.target;
+  if (clickedElement.className === 'navigation') {
+    return null;
+  }
 
   const memorySartWeek = new Date(getItem('displayedWeekStart'));
-  const eventTargetDirection = event.target.dataset.direction;
+  const eventTargetDirection = clickedElement.dataset.direction;
   const directionOfButton = (eventTargetDirection) 
     ? eventTargetDirection 
-    : event.target.closest('button').dataset.direction;
+    : clickedElement.closest('button').dataset.direction;
 
   switch(directionOfButton) {
     case 'prev':
       setItem(
         'displayedWeekStart',
-        getStartOfWeek(new Date(memorySartWeek.setDate(memorySartWeek.getDate() - 1))));
+        getStartOfWeek(shmoment(memorySartWeek).subtract('days', 1).result()));
       break;
     case 'next':
       setItem(
         'displayedWeekStart',
-        getStartOfWeek(new Date(memorySartWeek.setDate(memorySartWeek.getDate() + 8))));
+        getStartOfWeek(shmoment(memorySartWeek).add('days', 8).result()));
       break;
     default:
       setItem(
@@ -38,8 +40,9 @@ const onChangeWeek = (event) => {
         getStartOfWeek(new Date()));
   }
 
-  renderHeader();
+
   renderWeek();
+  renderHeader();
   renderCurrentMonth();
 };
 

@@ -12,6 +12,7 @@ Calendar static page
 - [Sass (Scss)](https://sass-lang.com/)
 - [BEM methodology](https://en.bem.info/methodology/)
 - [js](https://developer.mozilla.org/)
+- [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage/)
 
 ### Authour
 

@@ -17,26 +17,14 @@ const createWeekElements = day => (
   </div>`
 );
 
-const activeTimeScale = () => {
-  const today = new Date();
-  const todayTimeElement = document.querySelector(`div[data-day="${today.getDate()}"] div[data-time="${today.getHours()}"]`);
-
-  if (!todayTimeElement) return;
-
-  todayTimeElement.classList.add('today__time');
-  todayTimeElement.setAttribute('style', ``)
-  todayTimeElement.style.setProperty('--today__timeBeforeTop',`${today.getMinutes()}px`);
-}
-
 export const renderWeek = () => {
-  const daysWeeks = generateWeekRange(getItem('displayedWeekStart'))
+  const startWeekDay = getItem('displayedWeekStart');
+  const daysOfWeeks = generateWeekRange(startWeekDay)
   const calendarWeekElement = document.querySelector('.calendar__week');
 
-  calendarWeekElement.innerHTML = daysWeeks
-    .map(day => createWeekElements(new Date(day).getDate(), day))
+  calendarWeekElement.innerHTML = daysOfWeeks
+    .map(day => createWeekElements(new Date(day).getDate()))
     .join('');
-
-    activeTimeScale()
 
   renderEvents();
 };

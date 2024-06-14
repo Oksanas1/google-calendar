@@ -1,45 +1,54 @@
-import { getItem, setItem } from '../common/storage.js';
+import { setItem, getItem } from '../common/storage.js';
 import { renderEvents } from './events.js';
-import { getDateTime } from '../common/time.utils.js';
 import { closeModal } from '../common/modal.js';
+import { createEventInBase, getEventsLists, updateEventInBase } from '../common/getEway.js';
+import { getDateTime } from '../common/time.utils.js';
 
 const eventFormElem = document.querySelector('.event-form');
 const closeEventFormBtn = document.querySelector('.create-event__close-btn');
-
-const dataEventElements = Array.from(document.querySelectorAll('.event-form__field'));
 const buttonSaveEventsElement = document.querySelector('.event-form__submit-btn');
-
-function clearEventForm() {
-  dataEventElements.map(element => element.value = '');
-}
 
 function onCloseEventForm() {
   closeModal();
-  clearEventForm();
-}
+  setItem('eventIdToDelete', '');
+  eventFormElem.reset();
+} 
 
-function onCreateEvent(formData) {
-  const events = getItem('events');
+async function onCreateEvent(formData) {
+  const eventIdToDelete = getItem('eventIdToDelete') || '';
 
-  events.push({
-    id: Math.random().toString(12).slice(2),
+  const newObj = {
+    id: eventIdToDelete,
     title: formData.title,
-    start: getDateTime(formData.date, formData.startTime),
-    end: getDateTime(formData.date, formData.endTime),
     description: formData.description,
     color: formData.color,
-  });
+    start: getDateTime(formData.date, formData.startTime),
+    end: getDateTime(formData.date, formData.endTime)
+  };
 
-  setItem('events', events);
+  try {
+    (eventIdToDelete)
+      ? await updateEventInBase(eventIdToDelete, newObj)
+      : await createEventInBase(newObj);
 
-  onCloseEventForm();
-  renderEvents();
-}
+    getEventsLists()
+      .then(list => {
+        setItem('events', list);
+        onCloseEventForm();
+        renderEvents();
+      });
+  } catch(err) {
+    alert(err.message);
+  };
+};
 
 export function initEventForm(event) {
-  if (!event) return;
+  if (!event) {
+    return null;
+  }
   
   event.preventDefault();
+
   const formData = Object.fromEntries(new FormData(eventFormElem));
   onCreateEvent(formData);
 };
