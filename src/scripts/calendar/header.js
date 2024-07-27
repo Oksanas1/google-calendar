@@ -39,12 +39,9 @@ const createNameOfDayElement = (nameOfDay, dayOfWeek) => {
 export const renderHeader = () => {
   const numberOfDaysOfWeek = generateWeekRange(getItem('displayedWeekStart'));
 
-  calendarHeaderElement.innerHTML = [
-      `<div class="calendar__time-zon"><span>${new Date().toString().match(/([A-Z]+[\+-][0-9][0-9])/)[1]}</span></div>`, 
-      ...daysOfWeek.map(
-        (nameOfDay, index) => createNameOfDayElement(nameOfDay.toUpperCase(), numberOfDaysOfWeek[index])
-      )]
-    .join('');
+  calendarHeaderElement.innerHTML = 
+      `<div class="calendar__time-zon"><span>${new Date().toString().match(/([A-Z]+[\+-][0-9][0-9])/)[1]}</span></div>`
+        + daysOfWeek.reduce((acc, nameOfDay, index) => acc + createNameOfDayElement(nameOfDay.toUpperCase(), numberOfDaysOfWeek[index]), '');
 };
 
 createNewEventsButtonElement.addEventListener('click', openModal);

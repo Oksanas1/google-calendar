@@ -7,8 +7,7 @@ const generateDay = () => {
   const timeNumbers = createNumbersArray(0, 23);
 
   return timeNumbers
-    .map(hour => `<div class="calendar__time-slot" data-time="${hour}"></div>`)
-    .join('');
+    .reduce((acc, hour) => (acc + `<div class="calendar__time-slot" data-time="${hour}"></div>`), '');
 };
 
 const createWeekElements = day => (
@@ -23,8 +22,7 @@ export const renderWeek = () => {
   const calendarWeekElement = document.querySelector('.calendar__week');
 
   calendarWeekElement.innerHTML = daysOfWeeks
-    .map(day => createWeekElements(new Date(day).getDate()))
-    .join('');
+    .reduce((acc, day) => (acc + createWeekElements(new Date(day).getDate())), '');
 
   renderEvents();
 };

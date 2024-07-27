@@ -12,5 +12,5 @@ export const renderTimescale = () => {
   const timeNumbers = createNumbersArray(1, 24);
   const calndarTimeScaleElement = document.querySelector('.calendar__time-scale');
 
-  calndarTimeScaleElement.innerHTML = timeNumbers.map(hour => createTimeElement(hour)).join('');
+  calndarTimeScaleElement.innerHTML = timeNumbers.reduce((acc, curr) => acc + createTimeElement(curr), '');
 };

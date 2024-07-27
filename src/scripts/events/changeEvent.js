@@ -33,7 +33,7 @@ function onChangeEvent() {
 
   const startEvent = new Date(event.start);
 
-  const month = startEvent.getMonth() + 1
+  const month = startEvent.getMonth() + 1;
   event.day = `${startEvent.getFullYear()}-${(month < 10) ? '0' + month: month}-${startEvent.getDate()}`;
 
   eventFormDataElem.map(
