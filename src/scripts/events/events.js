@@ -32,7 +32,8 @@ const createEventElement = event => {
     `
     top: ${startEvent.getMinutes()}px;
     height: ${heightBlockEvent}px;
-    background:${event.color};`,
+    background:${event.color};
+    `,
   );
 
   const eventTitle = document.createElement('h4');

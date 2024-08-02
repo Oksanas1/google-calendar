@@ -1,26 +1,20 @@
-import { ESLint } from 'eslint';
+import globals from "globals";
+import tseslint from "typescript-eslint";
+import pluginVue from "eslint-plugin-vue";
 
-export default new ESLint({
-  baseConfig: {
-    env: {
-      browser: true,
-      es2021: true,
-    },
-    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
-    parserOptions: {
-      ecmaFeatures: {
-        jsx: true,
-      },
-      ecmaVersion: 12,
-      sourceType: 'module',
-    },
-    plugins: ['@typescript-eslint'],
+
+export default [
+  {files: ["**/*.{js,mjs,cjs,ts,vue}"]},
+  {languageOptions: { globals: globals.browser }},
+  ...tseslint.configs.recommended,
+  ...pluginVue.configs["flat/essential"],
+  {files: ["**/*.vue"], languageOptions: {parserOptions: {parser: tseslint.parser}}},
+ {
     rules: {
       strict: 0,
       'no-alert': 0,
       'no-console': 0,
       'no-constant-condition': 0,
-      'no-shadow': 0,
       'no-restricted-globals': 0,
       'no-unused-vars': 0,
       'no-underscore-dangle': 0,
@@ -30,6 +24,23 @@ export default new ESLint({
       'import/no-dynamic-require': 0,
       'import/prefer-default-export': 0,
       'prefer-template': 0,
+      "vue/max-attributes-per-line": ["error", {
+        "singleline": {
+          "max": 1
+        },      
+        "multiline": {
+          "max": 1
+        }
+      }],
+      "vue/html-self-closing": ["error", {
+        "html": {
+          "void": "never",
+          "normal": "never",
+          "component": "always"
+        },
+        "svg": "always",
+        "math": "always"
+      }]
     },
   },
-});
+];

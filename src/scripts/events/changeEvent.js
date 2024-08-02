@@ -13,7 +13,7 @@ function removeEventsFromCalendar() {
   });
 }
 
-async function onDeleteEvent(e) {
+async function onDeleteEvent() {
   const eventIdToDelete = getItem('eventIdToDelete');
 
   try {

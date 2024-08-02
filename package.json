@@ -1,24 +1,27 @@
 {
-  "name": "gromcode-calendar",
+  "name": "gromcode-calendar-js",
   "version": "1.0.0",
   "description": "### To start:",
   "type": "module",
   "scripts": {
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andrii142/gromcode-calendar-js.git"
+    "url": "https://github.com/Oksanas1/google-calendar"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/andrii142/gromcode-calendar-js/issues"
-  },
-  "homepage": "https://github.com/andrii142/gromcode-calendar-js#readme",
+  "homepage": "https://github.com/Oksanas1/google-calendar/blob/main/README.md",
   "devDependencies": {
     "@eslint/js": "^9.4.0",
     "babel-eslint": "^10.1.0",
@@ -27,9 +30,11 @@
     "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "globals": "^15.3.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "globals": "^15.9.0",
+    "husky": "^9.1.4",
     "prettier": "^3.0.0",
-    "typescript-eslint": "^7.11.0"
+    "typescript-eslint": "^7.18.0"
   },
   "main": ".eslintrc.js"
 }
