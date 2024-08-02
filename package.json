@@ -2,17 +2,10 @@
   "name": "gromcode-calendar-js",
   "version": "1.0.0",
   "description": "### To start:",
-  "type": "module",
   "scripts": {
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "format": "prettier --write .",
-    "prepare": "husky"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -23,18 +16,13 @@
   "license": "ISC",
   "homepage": "https://github.com/Oksanas1/google-calendar/blob/main/README.md",
   "devDependencies": {
-    "@eslint/js": "^9.4.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^9.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-config-prettier": "^8.0.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^9.27.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.9.0",
-    "husky": "^9.1.4",
-    "prettier": "^3.0.0",
-    "typescript-eslint": "^7.18.0"
+    "prettier": "^3.3.3"
   },
   "main": ".eslintrc.js"
 }

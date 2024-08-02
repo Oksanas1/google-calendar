@@ -27,9 +27,11 @@ async function onCreateEvent(formData) {
   };
 
   try {
-    eventIdToDelete
-      ? await updateEventInBase(eventIdToDelete, newObj)
-      : await createEventInBase(newObj);
+    if (eventIdToDelete) {
+      await updateEventInBase(eventIdToDelete, newObj);
+    } else {
+      await createEventInBase(newObj);
+    }
 
     getEventsLists().then(list => {
       setItem('events', list);
@@ -51,6 +53,7 @@ export function initEventForm(event) {
   const formData = Object.fromEntries(new FormData(eventFormElem));
   console.log(formData);
   onCreateEvent(formData);
+  return null;
 }
 
 buttonSaveEventsElement.addEventListener('click', initEventForm);

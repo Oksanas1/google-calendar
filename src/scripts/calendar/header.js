@@ -1,7 +1,7 @@
 import { getItem } from '../common/storage.js';
 import { generateWeekRange } from '../common/time.utils.js';
 import { openModal } from '../common/modal.js';
-import { activeTimeScale } from '../common/activeTimeScale.js';
+import activeTimeScale from '../common/activeTimeScale.js';
 
 const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 const calendarHeaderElement = document.querySelector('.calendar__header');
@@ -31,7 +31,7 @@ const createNameOfDayElement = (nameOfDay, dayOfWeek) => {
 
 export const renderHeader = () => {
   const numberOfDaysOfWeek = generateWeekRange(getItem('displayedWeekStart'));
-  const timeZone = new Date().toString().match(/([A-Z]+[\+-][0-9]{2})/)[1];
+  const timeZone = new Date().toString().match(/([A-Z]+[+-][0-9]{2})/)[1];
 
   calendarHeaderElement.innerHTML =
     `<div class="calendar__time-zon"><span>${timeZone}</span></div>` +

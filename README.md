@@ -1,8 +1,8 @@
-# Calendar
+# Project: Calendar
 
 ### [Site link](https://oksanas1.github.io/google-calendar/)
 
-Calendar static page
+Layout support desktop (up-to-1920) version
 
 ### The tech stack is:
 

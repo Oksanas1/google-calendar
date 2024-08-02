@@ -19,9 +19,8 @@ const onChangeWeek = event => {
 
   const memorySartWeek = new Date(getItem('displayedWeekStart'));
   const eventTargetDirection = clickedElement.dataset.direction;
-  const directionOfButton = eventTargetDirection
-    ? eventTargetDirection
-    : clickedElement.closest('button').dataset.direction;
+  const directionOfButton =
+    eventTargetDirection || clickedElement.closest('button').dataset.direction;
 
   switch (directionOfButton) {
     case 'prev':
@@ -43,6 +42,7 @@ const onChangeWeek = event => {
   renderWeek();
   renderHeader();
   renderCurrentMonth();
+  return null;
 };
 
 export const initNavigation = () => {

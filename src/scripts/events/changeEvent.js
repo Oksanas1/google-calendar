@@ -35,19 +35,21 @@ const fillForm = event => {
   const month = String(startEvent.getMonth() + 1).padStart(2, '0');
   const eventDay = `${startEvent.getFullYear()}-${month}-${String(startEvent.getDate()).padStart(2, '0')}`;
 
-  eventFormDataElem.map(item => {
-    switch (item.name) {
+  eventFormDataElem.forEach(item => {
+    const { name } = item;
+
+    switch (name) {
       case 'date':
-        item.value = eventDay;
+        item.setAttribute('value', eventDay);
         break;
       case 'startTime':
-        item.value = getEventTime(startEvent);
+        item.setAttribute('value', getEventTime(startEvent));
         break;
       case 'endTime':
-        item.value = getEventTime(endEvent);
+        item.setAttribute('value', getEventTime(endEvent));
         break;
       default:
-        item.value = event[item.name];
+        item.setAttribute('value', event[name] || '');
     }
   });
 };

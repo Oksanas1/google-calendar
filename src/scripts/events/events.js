@@ -17,6 +17,7 @@ function handleEventClick(event) {
 
   openPopup(event.pageX, event.pageY);
   setItem('eventIdToDelete', eventId);
+  return null;
 }
 
 const createEventElement = event => {
@@ -49,26 +50,30 @@ const createEventElement = event => {
 
 export const renderEvents = () => {
   const timeSlotsElements = Array.from(document.querySelectorAll('.calendar__time-slot'));
-  timeSlotsElements.map(slot => (slot.textContent = ''));
-  const eventList = getItem('events') || [];
+  timeSlotsElements.forEach(slot => {
+    while (slot.firstChild) {
+      slot.removeChild(slot.firstChild);
+    }
+  });
 
+  const eventList = getItem('events') || [];
   const startWeekDay = new Date(getItem('displayedWeekStart'));
   const endWeekDay = shmoment(startWeekDay).add('days', 7).result();
-  let eventStart = '';
 
-  eventList
-    .filter(event => {
-      eventStart = new Date(event.dateFrom);
-      return eventStart >= startWeekDay && eventStart < endWeekDay;
-    })
-    .map(event => {
-      const eventStart = new Date(event.dateFrom);
-      const timeSlotElement = document.querySelector(
-        `div[data-day="${eventStart.getDate()}"] div[data-time="${eventStart.getHours()}"]`,
-      );
+  const eventsThisWeek = eventList.filter(event => {
+    const eventStart = new Date(event.dateFrom);
+    return eventStart >= startWeekDay && eventStart < endWeekDay;
+  });
 
+  eventsThisWeek.forEach(event => {
+    const eventStart = new Date(event.dateFrom);
+    const timeSlotSelector = `div[data-day="${eventStart.getDate()}"] div[data-time="${eventStart.getHours()}"]`;
+    const timeSlotElement = document.querySelector(timeSlotSelector);
+
+    if (timeSlotElement) {
       timeSlotElement.append(createEventElement(event));
-    });
+    }
+  });
 };
 
 const onStorageChange = () => {

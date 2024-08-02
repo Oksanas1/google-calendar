@@ -1,5 +1,5 @@
 let timeoutId;
-export const activeTimeScale = () => {
+const activeTimeScale = () => {
   const today = new Date();
   const todayElement = document.querySelector(`div[data-day="${today.getDate()}"]`);
   const timeElemtnt = document.querySelector(`div[data-time="${today.getHours()}"]`);
@@ -19,4 +19,8 @@ export const activeTimeScale = () => {
   }
 
   timeoutId = setTimeout(activeTimeScale, 60000);
+
+  return null;
 };
+
+export default activeTimeScale;
