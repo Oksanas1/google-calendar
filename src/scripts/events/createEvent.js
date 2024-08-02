@@ -12,7 +12,7 @@ function onCloseEventForm() {
   closeModal();
   setItem('eventIdToDelete', '');
   eventFormElem.reset();
-} 
+}
 
 async function onCreateEvent(formData) {
   const eventIdToDelete = getItem('eventIdToDelete') || '';
@@ -22,36 +22,36 @@ async function onCreateEvent(formData) {
     title: formData.title,
     description: formData.description,
     color: formData.color,
-    start: new Date(getDateTime(formData.date, formData.startTime)).getTime(),
-    end: new Date(getDateTime(formData.date, formData.endTime)).getTime(),
+    dateFrom: new Date(getDateTime(formData.date, formData.startTime)).getTime(),
+    dateTo: new Date(getDateTime(formData.date, formData.endTime)).getTime(),
   };
 
   try {
-    (eventIdToDelete)
+    eventIdToDelete
       ? await updateEventInBase(eventIdToDelete, newObj)
       : await createEventInBase(newObj);
 
-    getEventsLists()
-      .then(list => {
-        setItem('events', list);
-        onCloseEventForm();
-        renderEvents();
-      });
-  } catch(err) {
+    getEventsLists().then(list => {
+      setItem('events', list);
+      onCloseEventForm();
+      renderEvents();
+    });
+  } catch (err) {
     alert(err.message);
-  };
-};
+  }
+}
 
 export function initEventForm(event) {
   if (!event) {
     return null;
   }
-  
+
   event.preventDefault();
 
   const formData = Object.fromEntries(new FormData(eventFormElem));
+  console.log(formData);
   onCreateEvent(formData);
-};
+}
 
 buttonSaveEventsElement.addEventListener('click', initEventForm);
 closeEventFormBtn.addEventListener('click', onCloseEventForm);

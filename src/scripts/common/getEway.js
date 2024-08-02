@@ -1,8 +1,7 @@
 const baseUrl = 'https://666441d2932baf9032aa81f9.mockapi.io/api/v1/events';
-const defaultError = new Error('Internal Server Error');
+const defaultError = text => new Error(`Internal Server Error. ${text}`);
 
-const mapList = lists => lists
-  .map(({ _id, ...rest }) => ({ id: _id, ...rest }));
+const mapList = lists => lists.map(({ _id, ...rest }) => ({ id: _id, ...rest }));
 
 export const getEventsLists = () => {
   return fetch(`${baseUrl}`)
@@ -11,14 +10,13 @@ export const getEventsLists = () => {
         return response.json();
       }
 
-      throw defaultError;
+      throw defaultError(response.text);
     })
     .then(lists => mapList(lists));
 };
 
 export const getEventById = eventId => {
-  return fetch(`${baseUrl}/${eventId}`)
-    .then(lists => lists.json());
+  return fetch(`${baseUrl}/${eventId}`).then(lists => lists.json());
 };
 
 export const createEventInBase = event => {
@@ -33,7 +31,7 @@ export const createEventInBase = event => {
       return response;
     }
 
-    throw defaultError;
+    throw defaultError(response.text);
   });
 };
 
@@ -45,7 +43,7 @@ export const deletEventInBase = eventId => {
       return response;
     }
 
-    throw defaultError;
+    throw defaultError(response.text);
   });
 };
 
@@ -56,5 +54,11 @@ export const updateEventInBase = (eventId, event) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(event),
+  }).then(response => {
+    if (response.ok) {
+      return response;
+    }
+
+    throw defaultError(response.text);
   });
-}
+};

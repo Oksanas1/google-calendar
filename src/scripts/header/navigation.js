@@ -11,7 +11,7 @@ function renderCurrentMonth() {
   displayedMonthElem.textContent = getDisplayedMonth(new Date(getItem('displayedWeekStart')));
 }
 
-const onChangeWeek = (event) => {
+const onChangeWeek = event => {
   const clickedElement = event.target;
   if (clickedElement.className === 'navigation') {
     return null;
@@ -19,27 +19,26 @@ const onChangeWeek = (event) => {
 
   const memorySartWeek = new Date(getItem('displayedWeekStart'));
   const eventTargetDirection = clickedElement.dataset.direction;
-  const directionOfButton = (eventTargetDirection) 
-    ? eventTargetDirection 
+  const directionOfButton = eventTargetDirection
+    ? eventTargetDirection
     : clickedElement.closest('button').dataset.direction;
 
-  switch(directionOfButton) {
+  switch (directionOfButton) {
     case 'prev':
       setItem(
         'displayedWeekStart',
-        getStartOfWeek(shmoment(memorySartWeek).subtract('days', 1).result()));
+        getStartOfWeek(shmoment(memorySartWeek).subtract('days', 1).result()),
+      );
       break;
     case 'next':
       setItem(
         'displayedWeekStart',
-        getStartOfWeek(shmoment(memorySartWeek).add('days', 8).result()));
+        getStartOfWeek(shmoment(memorySartWeek).add('days', 8).result()),
+      );
       break;
     default:
-      setItem(
-        'displayedWeekStart',
-        getStartOfWeek(new Date()));
+      setItem('displayedWeekStart', getStartOfWeek(new Date()));
   }
-
 
   renderWeek();
   renderHeader();

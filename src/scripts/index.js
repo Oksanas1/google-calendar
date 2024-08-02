@@ -12,16 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
   renderTimescale();
   setItem('displayedWeekStart', getStartOfWeek(new Date()));
   try {
-    getEventsLists()
-      .then(list => {
-        setItem('events', list);
-        renderWeek();
-        renderHeader();
-        initNavigation();
-        initEventForm();
-        updateEvents();
-      });
-  } catch(err) {
+    getEventsLists().then(list => {
+      setItem('events', list);
+      renderWeek();
+      renderHeader();
+      initNavigation();
+      initEventForm();
+      updateEvents();
+    });
+  } catch (err) {
     alert(err.message);
-  };
+  }
 });

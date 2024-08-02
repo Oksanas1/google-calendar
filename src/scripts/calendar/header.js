@@ -8,40 +8,38 @@ const calendarHeaderElement = document.querySelector('.calendar__header');
 const createNewEventsButtonElement = document.querySelector('.create-event-btn');
 
 const createNameOfDayElement = (nameOfDay, dayOfWeek) => {
-  const today = new Date(new Date().setHours(0,0,0,0));
-  let result = '';
+  const today = new Date(new Date().setHours(0, 0, 0, 0));
+  let additionalClasses = '';
+  let dayNumberClass = '';
 
   if (dayOfWeek > today) {
-    result = `
-      <div class="calendar__day-label day-label">
-        <span class="day-label__day-name">${nameOfDay}</span>
-        <span class="day-label__day-number day-label__day-number_next-color">${dayOfWeek.getDate()}</span>
-      </div>`
+    dayNumberClass = 'day-label__day-number_next-color';
   } else if (dayOfWeek < today) {
-    result = `
-      <div class="calendar__day-label day-label">
-        <span class="day-label__day-name">${nameOfDay}</span>
-        <span class="day-label__day-number day-label__day-number_prew-color">${dayOfWeek.getDate()}</span>
-      </div>`;
+    dayNumberClass = 'day-label__day-number_prew-color';
   } else {
-    result = `
-      <div class="calendar__day-label day-label today">
-        <span class="day-label__day-name today__day-name">${nameOfDay}</span>
-        <span class="day-label__day-number today__day-number">${dayOfWeek.getDate()}</span>
-      </div>`;
-
+    additionalClasses = ' today';
+    dayNumberClass = 'today__day-number';
     activeTimeScale();
   }
 
-  return result;
-}
+  return `
+    <div class="calendar__day-label day-label${additionalClasses}">
+      <span class="day-label__day-name${additionalClasses ? ' today__day-name' : ''}">${nameOfDay}</span>
+      <span class="day-label__day-number ${dayNumberClass}">${dayOfWeek.getDate()}</span>
+    </div>`;
+};
 
 export const renderHeader = () => {
   const numberOfDaysOfWeek = generateWeekRange(getItem('displayedWeekStart'));
+  const timeZone = new Date().toString().match(/([A-Z]+[\+-][0-9]{2})/)[1];
 
-  calendarHeaderElement.innerHTML = 
-      `<div class="calendar__time-zon"><span>${new Date().toString().match(/([A-Z]+[\+-][0-9][0-9])/)[1]}</span></div>`
-        + daysOfWeek.reduce((acc, nameOfDay, index) => acc + createNameOfDayElement(nameOfDay.toUpperCase(), numberOfDaysOfWeek[index]), '');
+  calendarHeaderElement.innerHTML =
+    `<div class="calendar__time-zon"><span>${timeZone}</span></div>` +
+    daysOfWeek.reduce(
+      (acc, nameOfDay, index) =>
+        acc + createNameOfDayElement(nameOfDay.toUpperCase(), numberOfDaysOfWeek[index]),
+      '',
+    );
 };
 
 createNewEventsButtonElement.addEventListener('click', openModal);

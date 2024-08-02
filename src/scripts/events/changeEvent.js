@@ -10,10 +10,10 @@ function removeEventsFromCalendar() {
     setItem('eventIdToDelete', '');
     closePopup();
     renderEvents();
-  });  
-};
+  });
+}
 
-async function onDeleteEvent() {
+async function onDeleteEvent(e) {
   const eventIdToDelete = getItem('eventIdToDelete');
 
   try {
@@ -21,41 +21,45 @@ async function onDeleteEvent() {
     removeEventsFromCalendar();
   } catch (err) {
     alert(err.message);
-  };
-};
+  }
+}
 
-const getEventTime = date => date.toString().slice(16, 21);
+const getEventTime = date => date.toTimeString().slice(0, 5);
 
-function onChangeEvent() {
-  const eventIdToDelete = getItem('eventIdToDelete');
-  const event = getItem('events').filter(event => event.id === eventIdToDelete)[0];
+const fillForm = event => {
   const eventFormDataElem = Array.from(document.querySelectorAll('.event-form__field'));
 
-  const startEvent = new Date(event.start);
+  const startEvent = new Date(event.dateFrom);
+  const endEvent = new Date(event.dateTo);
 
-  const month = startEvent.getMonth() + 1;
-  event.day = `${startEvent.getFullYear()}-${(month < 10) ? '0' + month: month}-${startEvent.getDate()}`;
+  const month = String(startEvent.getMonth() + 1).padStart(2, '0');
+  const eventDay = `${startEvent.getFullYear()}-${month}-${String(startEvent.getDate()).padStart(2, '0')}`;
 
-  eventFormDataElem.map(
-    item => {
-      switch(item.name) {
-        case 'date':
-          item.value = event.day;
-          break;
-        case 'startTime':
-          item.value = getEventTime(startEvent);
-          break;
-        case 'endTime':
-          item.value = getEventTime(new Date(event.end));
-          break;
-        default: 
-          item.value = event[item.name];
-      }
+  eventFormDataElem.map(item => {
+    switch (item.name) {
+      case 'date':
+        item.value = eventDay;
+        break;
+      case 'startTime':
+        item.value = getEventTime(startEvent);
+        break;
+      case 'endTime':
+        item.value = getEventTime(endEvent);
+        break;
+      default:
+        item.value = event[item.name];
+    }
   });
-  
+};
+
+function onChangeEvent() {
+  const eventIdToChange = getItem('eventIdToDelete');
+  const event = getItem('events').find(event => event.id === eventIdToChange);
+
+  fillForm(event);
   closePopup();
   openModal();
-};
+}
 
 export const updateEvents = () => {
   const changeEventBtn = document.querySelector('.update-event-btn');
@@ -64,4 +68,3 @@ export const updateEvents = () => {
   const deleteEventBtn = document.querySelector('.delete-event-btn');
   deleteEventBtn.addEventListener('click', onDeleteEvent);
 };
-
