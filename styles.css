@@ -4,7 +4,7 @@
 
 body {
   font-size: 18px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 button,
@@ -206,7 +206,7 @@ p {
   color: #ffffff;
 }
 .today__time::before {
-  content: '';
+  content: "";
   position: absolute;
   top: var(--today__timeBeforeTop);
   right: 0;
@@ -299,7 +299,6 @@ p {
   font-size: 18px;
   overflow: hidden;
 }
-
 .event__time {
   font-size: 14px;
 }

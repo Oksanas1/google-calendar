@@ -11,6 +11,7 @@ const createNameOfDayElement = (nameOfDay, dayOfWeek) => {
   const today = new Date(new Date().setHours(0, 0, 0, 0));
   let additionalClasses = '';
   let dayNumberClass = '';
+  const dateNumber = dayOfWeek.getDate();
 
   if (dayOfWeek > today) {
     dayNumberClass = 'day-label__day-number_next-color';
@@ -19,13 +20,13 @@ const createNameOfDayElement = (nameOfDay, dayOfWeek) => {
   } else {
     additionalClasses = ' today';
     dayNumberClass = 'today__day-number';
-    activeTimeScale();
+    activeTimeScale(dateNumber);
   }
 
   return `
     <div class="calendar__day-label day-label${additionalClasses}">
       <span class="day-label__day-name${additionalClasses ? ' today__day-name' : ''}">${nameOfDay}</span>
-      <span class="day-label__day-number ${dayNumberClass}">${dayOfWeek.getDate()}</span>
+      <span class="day-label__day-number ${dayNumberClass}">${dateNumber}</span>
     </div>`;
 };
 
