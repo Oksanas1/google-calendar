@@ -24,6 +24,13 @@ async function onDeleteEvent() {
   }
 }
 
+const changeTextInBtnForm = () => {
+  const createBtnElement = document.querySelector('.event-form__submit-btn');
+  if(createBtnElement) {
+    createBtnElement.textContent = 'Ediit';
+  }
+}
+
 const getEventTime = date => date.toTimeString().slice(0, 5);
 
 const fillForm = event => {
@@ -49,7 +56,7 @@ const fillForm = event => {
         item.setAttribute('value', getEventTime(endEvent));
         break;
       default:
-        item.setAttribute('value', event[name] || '');
+        item.value = event[name] || '';
     }
   });
 };
@@ -59,6 +66,7 @@ function onChangeEvent() {
   const event = getItem('events').find(event => event.id === eventIdToChange);
 
   fillForm(event);
+  changeTextInBtnForm();
   closePopup();
   openModal();
 }

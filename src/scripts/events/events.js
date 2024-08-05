@@ -21,13 +21,14 @@ function handleEventClick(event) {
 }
 
 const createEventElement = event => {
-  const startEvent = new Date(event.dateFrom);
-  const endEvent = new Date(event.dateTo);
+  const { dateFrom, dateTo, id, title, description } = event;
+  const startEvent = new Date(dateFrom);
+  const endEvent = new Date(dateTo);
   const heightBlockEvent = (endEvent - startEvent) / 60000;
 
   const newEventElement = document.createElement('div');
   newEventElement.classList.add('event');
-  newEventElement.dataset.eventId = event.id;
+  newEventElement.dataset.eventId = id;
   newEventElement.setAttribute(
     'style',
     `
@@ -39,10 +40,11 @@ const createEventElement = event => {
 
   const eventTitle = document.createElement('h4');
   eventTitle.classList.add('event__title');
-  eventTitle.textContent = event.title;
+  eventTitle.textContent = title;
   newEventElement.innerHTML = `
-      <h4 class="event__title">${event.title}</h4>
+      <h4 class="event__title">${title}</h4>
       <p class="event__time">${startEvent.toTimeString().slice(0, 5)} - ${endEvent.toTimeString().slice(0, 5)}</p>
+      <p class="event__description">${description}</p>
     `;
 
   return newEventElement;

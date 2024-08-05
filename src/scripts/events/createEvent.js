@@ -51,7 +51,6 @@ export function initEventForm(event) {
   event.preventDefault();
 
   const formData = Object.fromEntries(new FormData(eventFormElem));
-  console.log(formData);
   onCreateEvent(formData);
   return null;
 }

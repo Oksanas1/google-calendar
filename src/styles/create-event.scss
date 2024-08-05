@@ -11,9 +11,11 @@
 }
 
 .event-form {
+  display: flex;
+  flex-direction: column;
+
   &__text {
-    width: 480px;
-    font-size: 20px;
+    font-size: 18px;
     color: $text-color-black;
 
     &:focus {
@@ -22,17 +24,11 @@
   }
 
   &__time {
-    margin-top: 30px;
-    width: 480px;
+    margin-top: $uinix;
     text-align: left;
   }
 
-  .fa-clock {
-    height: 40px;
-  }
-
   &__date {
-    margin-left: 30px;
     line-height: 40px;
   }
 
@@ -44,19 +40,12 @@
     line-height: 40px;
   }
 
-  .fa-align-left {
-    vertical-align: top;
-    margin-top: 90px;
-  }
-
   &__textarea {
-    margin-left: 30px;
-    width: 430px;
-    height: 200px;
-    font-size: 20px;
+    margin-top: $uinix;
+    height: 100px;
+    font-size: 18px;
 
     &::placeholder {
-      line-height: 200px;
       font-size: 18px;
       color: $text-color-grey;
     }
@@ -64,13 +53,13 @@
 
   &__submit-btn {
     display: block;
-    margin: 20px 0 0 auto;
+    margin: $uinix 0 0 auto;
     width: 140px;
     height: 40px;
-    border-radius: 15px;
+    border-radius: $border-radius;
     background: $color-blue;
     color: $text-color-white;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
   }
 }

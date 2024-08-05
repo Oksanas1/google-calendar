@@ -9,17 +9,23 @@ const calculateRedLinePosition = () => {
 
 const setPositionRedLine = () => {
   if (!todayElement) return;
+  let hasScrolled = false;
 
   const topAlign = calculateRedLinePosition();
   todayElement.classList.add('today__time');
   todayElement.style.setProperty('--today__timeBeforeTop', `${topAlign}px`);
-
-  todayElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  if (!hasScrolled) {
+    window.scrollTo({
+      top: todayElement.offsetTop + topAlign,
+      behavior: 'smooth'
+    });
+    hasScrolled = true;
+  }
 };
 
 const startInterval = () => {
   setPositionRedLine();
-  intervalId = setInterval(setPositionRedLine, 60000);
+  intervalId = setInterval(setPositionRedLine, 10000);
 };
 
 const resetInterval = () => {
