@@ -26,10 +26,10 @@ async function onDeleteEvent() {
 
 const changeTextInBtnForm = () => {
   const createBtnElement = document.querySelector('.event-form__submit-btn');
-  if(createBtnElement) {
+  if (createBtnElement) {
     createBtnElement.textContent = 'Edit';
   }
-}
+};
 
 const getEventTime = date => date.toTimeString().slice(0, 5);
 
@@ -55,8 +55,11 @@ const fillForm = event => {
       case 'endTime':
         item.setAttribute('value', getEventTime(endEvent));
         break;
+      case 'description':
+        item.textContent = event[name] || '';
+        break;
       default:
-        item.value = event[name] || '';
+        item.setAttribute('value', event[name] || '');
     }
   });
 };

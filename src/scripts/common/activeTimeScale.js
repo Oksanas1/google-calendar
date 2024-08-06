@@ -17,7 +17,7 @@ const setPositionRedLine = () => {
   if (!hasScrolled) {
     window.scrollTo({
       top: todayElement.offsetTop + topAlign,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
     hasScrolled = true;
   }
