@@ -27,7 +27,7 @@ async function onDeleteEvent() {
 const changeTextInBtnForm = () => {
   const createBtnElement = document.querySelector('.event-form__submit-btn');
   if(createBtnElement) {
-    createBtnElement.textContent = 'Ediit';
+    createBtnElement.textContent = 'Edit';
   }
 }
 

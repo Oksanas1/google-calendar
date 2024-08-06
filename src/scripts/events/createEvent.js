@@ -55,5 +55,5 @@ export function initEventForm(event) {
   return null;
 }
 
-buttonSaveEventsElement.addEventListener('click', initEventForm);
+buttonSaveEventsElement.addEventListener('click', (event) => initEventForm(event));
 closeEventFormBtn.addEventListener('click', onCloseEventForm);
