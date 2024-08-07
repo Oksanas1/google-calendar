@@ -13,14 +13,30 @@ function removeEventsFromCalendar() {
   });
 }
 
+const canBeChangeEvent = dateTo => {
+  const currentTime = new Date();
+  const timeDiff = new Date(dateTo).getTime() - currentTime.getTime();
+  if (timeDiff < 600) {
+    alert('Event cannot be deleted or change within 15 minutes of its end time.');
+    return false;
+  }
+
+  return true;
+};
+
 async function onDeleteEvent() {
   const eventIdToDelete = getItem('eventIdToDelete');
+  const event = getItem('events').find(event => event.id === eventIdToDelete);
+
+  if (!canBeChangeEvent(event.dateTo)) {
+    return;
+  }
 
   try {
     await deletEventInBase(eventIdToDelete);
     removeEventsFromCalendar();
   } catch (err) {
-    alert(err.message);
+    console.err(err.message);
   }
 }
 
@@ -45,28 +61,31 @@ const fillForm = event => {
   eventFormDataElem.forEach(item => {
     const { name } = item;
 
+    /* eslint-disable no-param-reassign */
     switch (name) {
       case 'date':
-        item.setAttribute('value', eventDay);
+        item.value = eventDay;
         break;
       case 'startTime':
-        item.setAttribute('value', getEventTime(startEvent));
+        item.value = getEventTime(startEvent);
         break;
       case 'endTime':
-        item.setAttribute('value', getEventTime(endEvent));
-        break;
-      case 'description':
-        item.textContent = event[name] || '';
+        item.value = getEventTime(endEvent);
         break;
       default:
-        item.setAttribute('value', event[name] || '');
+        item.value = event[name] || '';
     }
+    /* eslint-enable */
   });
 };
 
 function onChangeEvent() {
   const eventIdToChange = getItem('eventIdToDelete');
   const event = getItem('events').find(event => event.id === eventIdToChange);
+
+  if (!canBeChangeEvent(event.dateTo)) {
+    return;
+  }
 
   fillForm(event);
   changeTextInBtnForm();

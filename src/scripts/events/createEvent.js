@@ -3,56 +3,54 @@ import { renderEvents } from './events.js';
 import { closeModal } from '../common/modal.js';
 import { createEventInBase, getEventsLists, updateEventInBase } from '../common/getEway.js';
 import { getDateTime } from '../common/time.utils.js';
+import { validateEvent } from './validationEvent.js';
 
 const eventFormElem = document.querySelector('.event-form');
 const closeEventFormBtn = document.querySelector('.create-event__close-btn');
 const buttonSaveEventsElement = document.querySelector('.event-form__submit-btn');
 
+const createNewEventObj = ({ title, description, endTime, startTime, date, color }) => {
+  const existingEventId = getItem('eventIdToDelete') || '';
+
+  const dateFrom = getDateTime(date, startTime).getTime();
+  const dateTo = getDateTime(date, endTime).getTime();
+
+  return { id: existingEventId, title, description, color, dateFrom, dateTo };
+};
+
 function onCloseEventForm() {
   closeModal();
   setItem('eventIdToDelete', '');
-  eventFormElem.reset();
 }
 
 async function onCreateEvent(formData) {
-  const eventIdToDelete = getItem('eventIdToDelete') || '';
-
-  const newObj = {
-    id: eventIdToDelete,
-    title: formData.title,
-    description: formData.description,
-    color: formData.color,
-    dateFrom: new Date(getDateTime(formData.date, formData.startTime)).getTime(),
-    dateTo: new Date(getDateTime(formData.date, formData.endTime)).getTime(),
-  };
+  const newObj = createNewEventObj(formData);
+  if (!validateEvent(newObj)) {
+    return;
+  }
 
   try {
-    if (eventIdToDelete) {
-      await updateEventInBase(eventIdToDelete, newObj);
-    } else {
-      await createEventInBase(newObj);
-    }
+    const operation = newObj.id ? updateEventInBase(newObj.id, newObj) : createEventInBase(newObj);
+    await operation;
 
-    getEventsLists().then(list => {
-      setItem('events', list);
-      onCloseEventForm();
-      renderEvents();
-    });
+    const list = await getEventsLists();
+    setItem('events', list);
+    onCloseEventForm();
+    renderEvents();
   } catch (err) {
-    alert(err.message);
+    console.error(err.message);
   }
 }
 
 export function initEventForm(event) {
   if (!event) {
-    return null;
+    return;
   }
 
   event.preventDefault();
 
   const formData = Object.fromEntries(new FormData(eventFormElem));
   onCreateEvent(formData);
-  return null;
 }
 
 buttonSaveEventsElement.addEventListener('click', event => initEventForm(event));

@@ -1,5 +1,6 @@
 let todayElement;
 let intervalId;
+let hasScrolled = false;
 
 const calculateRedLinePosition = () => {
   const currentTime = new Date();
@@ -8,24 +9,24 @@ const calculateRedLinePosition = () => {
 };
 
 const setPositionRedLine = () => {
-  if (!todayElement) return;
-  let hasScrolled = false;
+  if (!todayElement) {
+    return;
+  }
 
   const topAlign = calculateRedLinePosition();
   todayElement.classList.add('today__time');
   todayElement.style.setProperty('--today__timeBeforeTop', `${topAlign}px`);
+
   if (!hasScrolled) {
-    window.scrollTo({
-      top: todayElement.offsetTop + topAlign,
-      behavior: 'smooth',
-    });
+    const redLineElem = document.querySelector('.today__time');
+    redLineElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
     hasScrolled = true;
   }
 };
 
 const startInterval = () => {
   setPositionRedLine();
-  intervalId = setInterval(setPositionRedLine, 10000);
+  intervalId = setInterval(setPositionRedLine, 60000);
 };
 
 const resetInterval = () => {
@@ -47,16 +48,17 @@ const removeListeners = () => {
 
 function activeTimeScale(dateNumber) {
   todayElement = document.querySelector(`div[data-day="${dateNumber}"]`);
+
   if (!todayElement) {
     clearInterval(intervalId);
     removeListeners();
-    return null;
+    hasScrolled = false;
+    return;
   }
 
   setPositionRedLine();
-  startInterval();
+  resetInterval();
   activeListener();
-  return null;
 }
 
 export default activeTimeScale;

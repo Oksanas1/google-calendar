@@ -14,7 +14,7 @@ function renderCurrentMonth() {
 const onChangeWeek = event => {
   const clickedElement = event.target;
   if (clickedElement.className === 'navigation') {
-    return null;
+    return;
   }
 
   const memorySartWeek = new Date(getItem('displayedWeekStart'));
@@ -42,7 +42,6 @@ const onChangeWeek = event => {
   renderWeek();
   renderHeader();
   renderCurrentMonth();
-  return null;
 };
 
 export const initNavigation = () => {

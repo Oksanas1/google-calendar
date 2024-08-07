@@ -23,6 +23,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     initEventForm();
     updateEvents();
   } catch (err) {
-    alert(`Error loading events: ${err.message}`);
+    console.error(`Error loading events: ${err.message}`);
   }
 });

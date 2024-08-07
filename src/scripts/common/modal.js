@@ -11,6 +11,7 @@ export function openModal() {
 }
 
 export function closeModal() {
+  formElement.reset();
   modalElement.classList.add('hidden');
 }
 
