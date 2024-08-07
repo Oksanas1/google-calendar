@@ -16,7 +16,7 @@ function removeEventsFromCalendar() {
 const canBeChangeEvent = dateTo => {
   const currentTime = new Date();
   const timeDiff = new Date(dateTo).getTime() - currentTime.getTime();
-  if (timeDiff < 600) {
+  if (timeDiff < 900000) {
     alert('Event cannot be deleted or change within 15 minutes of its end time.');
     return false;
   }
