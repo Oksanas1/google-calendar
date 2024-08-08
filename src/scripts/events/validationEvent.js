@@ -12,7 +12,7 @@ const getFilterEvents = () => {
 
 export const validateEvent = newEvent => {
   const existingEvents = getFilterEvents();
-  const { dateFrom, dateTo } = newEvent;
+  const { id: newEventId, dateFrom, dateTo } = newEvent;
   const currentEventDateFrom = new Date(dateFrom).getTime();
   const currentEventDateTo = new Date(dateTo).getTime();
 
@@ -30,9 +30,12 @@ export const validateEvent = newEvent => {
     result = false;
   }
 
-  const isOverlapping = existingEvents.some(({ dateFrom, dateTo }) => {
-    const existingStart = dateFrom.getTime();
-    const existingEnd = dateTo.getTime();
+  const isOverlapping = existingEvents.some(({ id, dateFrom, dateTo }) => {
+    if (id === newEventId) {
+      return false;
+    }
+    const existingStart = new Date(dateFrom).getTime();
+    const existingEnd = new Date(dateTo).getTime();
 
     return currentEventDateFrom < existingEnd && currentEventDateTo > existingStart;
   });

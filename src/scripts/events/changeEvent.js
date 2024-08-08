@@ -40,45 +40,6 @@ async function onDeleteEvent() {
   }
 }
 
-const changeTextInBtnForm = () => {
-  const createBtnElement = document.querySelector('.event-form__submit-btn');
-  if (createBtnElement) {
-    createBtnElement.textContent = 'Edit';
-  }
-};
-
-const getEventTime = date => date.toTimeString().slice(0, 5);
-
-const fillForm = event => {
-  const eventFormDataElem = Array.from(document.querySelectorAll('.event-form__field'));
-
-  const startEvent = new Date(event.dateFrom);
-  const endEvent = new Date(event.dateTo);
-
-  const month = String(startEvent.getMonth() + 1).padStart(2, '0');
-  const eventDay = `${startEvent.getFullYear()}-${month}-${String(startEvent.getDate()).padStart(2, '0')}`;
-
-  eventFormDataElem.forEach(item => {
-    const { name } = item;
-
-    /* eslint-disable no-param-reassign */
-    switch (name) {
-      case 'date':
-        item.value = eventDay;
-        break;
-      case 'startTime':
-        item.value = getEventTime(startEvent);
-        break;
-      case 'endTime':
-        item.value = getEventTime(endEvent);
-        break;
-      default:
-        item.value = event[name] || '';
-    }
-    /* eslint-enable */
-  });
-};
-
 function onChangeEvent() {
   const eventIdToChange = getItem('eventIdToDelete');
   const event = getItem('events').find(event => event.id === eventIdToChange);
@@ -87,10 +48,8 @@ function onChangeEvent() {
     return;
   }
 
-  fillForm(event);
-  changeTextInBtnForm();
   closePopup();
-  openModal();
+  openModal(event);
 }
 
 export const updateEvents = () => {
