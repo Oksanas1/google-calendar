@@ -42,8 +42,10 @@ const createEventElement = event => {
   eventTitle.classList.add('event__title');
   eventTitle.textContent = title;
   newEventElement.innerHTML = `
-      <h4 class="event__title">${title}</h4>
-      <p class="event__time">${startEvent.toTimeString().slice(0, 5)} - ${endEvent.toTimeString().slice(0, 5)}</p>
+      <div class="event__header" style="background:${event.color};">
+        <h4 class="event__title">${title}</h4>
+        <p class="event__time">${startEvent.toTimeString().slice(0, 5)} - ${endEvent.toTimeString().slice(0, 5)}</p>
+      </div>
       <p class="event__description">${description}</p>
     `;
 
