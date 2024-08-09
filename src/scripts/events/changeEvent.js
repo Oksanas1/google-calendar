@@ -29,6 +29,7 @@ async function onDeleteEvent() {
   const event = getItem('events').find(event => event.id === eventIdToDelete);
 
   if (!canBeChangeEvent(event.dateTo)) {
+    setItem('eventIdToDelete', '');
     return;
   }
 
@@ -45,6 +46,7 @@ function onChangeEvent() {
   const event = getItem('events').find(event => event.id === eventIdToChange);
 
   if (!canBeChangeEvent(event.dateTo)) {
+    setItem('eventIdToDelete', '');
     return;
   }
 

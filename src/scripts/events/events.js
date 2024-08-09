@@ -15,8 +15,8 @@ function handleEventClick(event) {
       ? targetObj.dataset.eventId
       : targetObj.parentElement.dataset.eventId;
 
-  openPopup(event.pageX, event.pageY);
   setItem('eventIdToDelete', eventId);
+  openPopup(event.pageX, event.pageY);
   return null;
 }
 
@@ -42,7 +42,7 @@ const createEventElement = event => {
   eventTitle.classList.add('event__title');
   eventTitle.textContent = title;
   newEventElement.innerHTML = `
-      <div class="event__header" style="background:${event.color};">
+      <div class="event__header" style="background:${event.color};" data-event-id=${id}>
         <h4 class="event__title">${title}</h4>
         <p class="event__time">${startEvent.toTimeString().slice(0, 5)} - ${endEvent.toTimeString().slice(0, 5)}</p>
       </div>
