@@ -39,7 +39,8 @@
   &__description {
     border: $uinix solid transparent;
     flex-grow: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
     font-size: 14px;
+    scrollbar-width: thin;
   }
 }

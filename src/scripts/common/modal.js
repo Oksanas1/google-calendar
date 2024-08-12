@@ -14,7 +14,12 @@ const fillForm = event => {
     ? new Date(event.dateTo)
     : shmoment(startEvent).add('minutes', 15).result();
 
-  const eventDay = startEvent.toLocaleDateString().split('/').reverse().join('-');
+  const eventDay = startEvent
+    .toLocaleDateString('en-GB')
+    .split('/')
+    .reverse()
+    .map(element => (element.length < 2 ? '0' + element : element))
+    .join('-');
 
   const formData = {
     date: eventDay,
@@ -23,7 +28,6 @@ const fillForm = event => {
     color: event.color || '#6495ed',
     ...event,
   };
-
   eventFormDataElem.forEach(item => {
     // eslint-disable-next-line no-param-reassign
     item.value = formData[item.name] || '';
