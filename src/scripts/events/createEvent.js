@@ -1,8 +1,8 @@
 import { setItem, getItem } from '../common/storage.js';
 import { renderEvents } from './events.js';
 import { closeModal } from '../common/modal.js';
-import { createEventInBase, getEventsLists, updateEventInBase } from '../common/getEway.js';
-import { getDateTime } from '../common/time.utils.js';
+import { createEventInDB, getEventsListsFromDB, updateEventInDB } from '../common/gateways.js';
+import { getDateTime } from '../common/utils.js';
 import { validateEvent } from './validationEvent.js';
 
 const eventFormElem = document.querySelector('.event-form');
@@ -18,31 +18,31 @@ const createNewEventObj = ({ title, description, endTime, startTime, date, color
   return { id: existingEventId, title, description, color, dateFrom, dateTo };
 };
 
-function onCloseEventForm() {
+const onCloseEventForm = () => {
   closeModal();
   setItem('eventIdToDelete', '');
-}
+};
 
-async function onCreateEvent(formData) {
+const onCreateEvent = async formData => {
   const newObj = createNewEventObj(formData);
   if (!validateEvent(newObj)) {
     return;
   }
 
   try {
-    const operation = newObj.id ? updateEventInBase(newObj.id, newObj) : createEventInBase(newObj);
+    const operation = newObj.id ? updateEventInDB(newObj.id, newObj) : createEventInDB(newObj);
     await operation;
 
-    const list = await getEventsLists();
+    const list = await getEventsListsFromDB();
     setItem('events', list);
     onCloseEventForm();
     renderEvents();
   } catch (err) {
     console.error(err.message);
   }
-}
+};
 
-export function initEventForm(event) {
+export const initEventForm = event => {
   if (!event) {
     return;
   }
@@ -51,7 +51,7 @@ export function initEventForm(event) {
 
   const formData = Object.fromEntries(new FormData(eventFormElem));
   onCreateEvent(formData);
-}
+};
 
 buttonSaveEventsElement.addEventListener('click', event => initEventForm(event));
 closeEventFormBtn.addEventListener('click', onCloseEventForm);

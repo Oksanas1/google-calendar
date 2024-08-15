@@ -1,7 +1,6 @@
 import { getItem } from '../common/storage.js';
-import { generateWeekRange } from '../common/time.utils.js';
+import { generateWeekRange, createNumbersArray } from '../common/utils.js';
 import { renderEvents } from '../events/events.js';
-import { createNumbersArray } from '../common/createNumbersArray.js';
 
 const generateDay = () => {
   const timeNumbers = createNumbersArray(0, 23);

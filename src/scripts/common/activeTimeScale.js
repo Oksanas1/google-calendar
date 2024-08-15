@@ -46,7 +46,7 @@ const removeListeners = () => {
   });
 };
 
-function activeTimeScale(dateNumber) {
+const activeTimeScale = dateNumber => {
   todayElement = document.querySelector(`div[data-day="${dateNumber}"]`);
 
   if (!todayElement) {
@@ -59,6 +59,6 @@ function activeTimeScale(dateNumber) {
   setPositionRedLine();
   resetInterval();
   activeListener();
-}
+};
 
 export default activeTimeScale;

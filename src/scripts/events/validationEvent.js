@@ -10,44 +10,55 @@ const getFilterEvents = () => {
   return eventList.filter(event => isToday(event.dateFrom));
 };
 
-export const validateEvent = newEvent => {
-  const existingEvents = getFilterEvents();
+const validateEventDuration = (start, end) => {
+  const eventDurationMinutes = (end - start) / 60000;
+  const errors = [];
+
+  if (eventDurationMinutes > 360) {
+    errors.push('Event duration cannot exceed 6 hours.');
+  }
+
+  if (eventDurationMinutes < 0) {
+    errors.push('Event cannot end before it starts.');
+  }
+
+  return errors;
+};
+
+const checkForOverlaps = (newEvent, existingEvents) => {
   const { id: newEventId, dateFrom, dateTo } = newEvent;
-  const currentEventDateFrom = new Date(dateFrom).getTime();
-  const currentEventDateTo = new Date(dateTo).getTime();
-
-  let result = true;
-  const textMessage = [];
-
-  const diffMinut = (currentEventDateTo - currentEventDateFrom) / 60000;
-  if (diffMinut > 360) {
-    textMessage.push('Event duration cannot exceed 6 hours.');
-    result = false;
-  }
-
-  if (diffMinut < 0) {
-    textMessage.push('Event cannot end before start');
-    result = false;
-  }
+  const newEventStart = new Date(dateFrom).getTime();
+  const newEventEnd = new Date(dateTo).getTime();
 
   const isOverlapping = existingEvents.some(({ id, dateFrom, dateTo }) => {
-    if (id === newEventId) {
-      return false;
-    }
-    const existingStart = new Date(dateFrom).getTime();
-    const existingEnd = new Date(dateTo).getTime();
+    if (id === newEventId) return false;
 
-    return currentEventDateFrom < existingEnd && currentEventDateTo > existingStart;
+    const existingEventStart = new Date(dateFrom).getTime();
+    const existingEventEnd = new Date(dateTo).getTime();
+
+    return newEventStart < existingEventEnd && newEventEnd > existingEventStart;
   });
 
-  if (isOverlapping) {
-    textMessage.push('Events cannot overlap.');
-    result = false;
-  }
+  return isOverlapping ? ['Events cannot overlap.'] : [];
+};
 
-  if (textMessage.length > 0) {
-    alert(textMessage.join('\n'));
+const displayErrors = errors => {
+  if (errors.length > 0) {
+    alert(errors.join('\n'));
   }
+};
 
-  return result;
+export const validateEvent = newEvent => {
+  const existingEvents = getFilterEvents();
+  const newEventStart = new Date(newEvent.dateFrom).getTime();
+  const newEventEnd = new Date(newEvent.dateTo).getTime();
+
+  const errors = [
+    ...validateEventDuration(newEventStart, newEventEnd),
+    ...checkForOverlaps(newEvent, existingEvents),
+  ];
+
+  displayErrors(errors);
+
+  return errors.length === 0;
 };

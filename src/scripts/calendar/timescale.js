@@ -1,4 +1,4 @@
-import { createNumbersArray } from '../common/createNumbersArray.js';
+import { createNumbersArray } from '../common/utils.js';
 
 const createTimeElement = number => {
   const hour = number < 10 ? `0${number}` : number;

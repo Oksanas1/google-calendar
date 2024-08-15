@@ -1,9 +1,7 @@
 const baseUrl = 'https://666441d2932baf9032aa81f9.mockapi.io/api/v1/events';
 const defaultError = text => new Error(`Internal Server Error. ${text}`);
 
-const mapList = lists => lists.map(({ _id, ...rest }) => ({ id: _id, ...rest }));
-
-export const getEventsLists = () => {
+export const getEventsListsFromDB = () => {
   return fetch(`${baseUrl}`)
     .then(response => {
       if (response.ok) {
@@ -12,14 +10,14 @@ export const getEventsLists = () => {
 
       throw defaultError(response.text);
     })
-    .then(lists => mapList(lists));
+    .then(lists => lists.map(({ _id, ...rest }) => ({ id: _id, ...rest })));
 };
 
-export const getEventById = eventId => {
+export const getEventByIdFromDB = eventId => {
   return fetch(`${baseUrl}/${eventId}`).then(lists => lists.json());
 };
 
-export const createEventInBase = event => {
+export const createEventInDB = event => {
   return fetch(baseUrl, {
     method: 'POST',
     headers: {
@@ -35,7 +33,7 @@ export const createEventInBase = event => {
   });
 };
 
-export const deletEventInBase = eventId => {
+export const deletEventInDB = eventId => {
   return fetch(`${baseUrl}/${eventId}`, {
     method: 'DELETE',
   }).then(response => {
@@ -47,7 +45,7 @@ export const deletEventInBase = eventId => {
   });
 };
 
-export const updateEventInBase = (eventId, event) => {
+export const updateEventInDB = (eventId, event) => {
   return fetch(`${baseUrl}/${eventId}`, {
     method: 'PUT',
     headers: {

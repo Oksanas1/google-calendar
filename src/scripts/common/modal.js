@@ -36,19 +36,19 @@ const fillForm = event => {
   createBtnElement.textContent = event.id ? 'Edit' : 'Create';
 };
 
-export function openModal(event = null) {
+export const openModal = (event = null) => {
   fillForm(event);
   modalElement.classList.remove('hidden');
-}
+};
 
-export function closeModal() {
+export const closeModal = () => {
   formElement.reset();
   modalElement.classList.add('hidden');
-}
+};
 
-function onClickInsideModal(event) {
+const onClickInsideModal = event => {
   event.stopPropagation();
-}
+};
 
 modalContentElement.addEventListener('click', onClickInsideModal);
 modalElement.addEventListener('click', closeModal);

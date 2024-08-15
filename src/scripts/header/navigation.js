@@ -1,15 +1,15 @@
 import { getItem, setItem } from '../common/storage.js';
 import { renderWeek } from '../calendar/calendar.js';
 import { renderHeader } from '../calendar/header.js';
-import { getStartOfWeek, getDisplayedMonth } from '../common/time.utils.js';
+import { getStartOfWeek, getDisplayedMonth } from '../common/utils.js';
 import shmoment from '../common/shmoment.js';
 
 const navElem = document.querySelector('.navigation');
 const displayedMonthElem = document.querySelector('.navigation__displayed-month');
 
-function renderCurrentMonth() {
+const renderCurrentMonth = () => {
   displayedMonthElem.textContent = getDisplayedMonth(new Date(getItem('displayedWeekStart')));
-}
+};
 
 const onChangeWeek = event => {
   const clickedElement = event.target;

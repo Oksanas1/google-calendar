@@ -1,17 +1,17 @@
 import { getItem, setItem } from '../common/storage.js';
 import { closePopup } from '../common/popup.js';
-import { deletEventInBase, getEventsLists } from '../common/getEway.js';
+import { deletEventInDB, getEventsListsFromDB } from '../common/gateways.js';
 import { openModal } from '../common/modal.js';
 import { renderEvents } from './events.js';
 
-function removeEventsFromCalendar() {
-  getEventsLists().then(list => {
+const replacingEventFromStoregeWithDB = () => {
+  getEventsListsFromDB().then(list => {
     setItem('events', list);
     setItem('eventIdToDelete', '');
     closePopup();
     renderEvents();
   });
-}
+};
 
 const canBeChangeEvent = dateTo => {
   const currentTime = new Date();
@@ -24,24 +24,24 @@ const canBeChangeEvent = dateTo => {
   return true;
 };
 
-async function onDeleteEvent() {
+const onDeleteEvent = async () => {
   const eventIdToDelete = getItem('eventIdToDelete');
   const event = getItem('events').find(event => event.id === eventIdToDelete);
 
-  if (!canBeChangeEvent(event.dateTo)) {
+  if (!canBeChangeEvent(new Date(event.dateTo))) {
     setItem('eventIdToDelete', '');
     return;
   }
 
   try {
-    await deletEventInBase(eventIdToDelete);
-    removeEventsFromCalendar();
+    await deletEventInDB(eventIdToDelete);
+    replacingEventFromStoregeWithDB();
   } catch (err) {
     console.err(err.message);
   }
-}
+};
 
-function onChangeEvent() {
+const onChangeEvent = () => {
   const eventIdToChange = getItem('eventIdToDelete');
   const event = getItem('events').find(event => event.id === eventIdToChange);
 
@@ -52,7 +52,7 @@ function onChangeEvent() {
 
   closePopup();
   openModal(event);
-}
+};
 
 export const updateEvents = () => {
   const changeEventBtn = document.querySelector('.update-event-btn');

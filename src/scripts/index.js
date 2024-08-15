@@ -3,10 +3,10 @@ import { renderWeek } from './calendar/calendar.js';
 import { renderHeader } from './calendar/header.js';
 import { initNavigation } from './header/navigation.js';
 import { setItem } from './common/storage.js';
-import { getStartOfWeek } from './common/time.utils.js';
+import { getStartOfWeek } from './common/utils.js';
 import { initEventForm } from './events/createEvent.js';
 import { updateEvents } from './events/changeEvent.js';
-import { getEventsLists } from './common/getEway.js';
+import { getEventsListsFromDB } from './common/gateways.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setItem('displayedWeekStart', getStartOfWeek(new Date()));
     setItem('displayedWeekStart', getStartOfWeek(new Date()));
 
-    const list = await getEventsLists();
+    const list = await getEventsListsFromDB();
     setItem('events', list);
 
     renderWeek();

@@ -1,5 +1,5 @@
 import { getItem } from '../common/storage.js';
-import { generateWeekRange } from '../common/time.utils.js';
+import { generateWeekRange } from '../common/utils.js';
 import { openModal } from '../common/modal.js';
 import activeTimeScale from '../common/activeTimeScale.js';
 

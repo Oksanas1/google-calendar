@@ -4,11 +4,11 @@ import shmoment from '../common/shmoment.js';
 
 const weekElem = document.querySelector('.calendar__week');
 
-function handleEventClick(event) {
+const handleEventClick = event => {
   const targetObj = event.target;
 
   if (!targetObj.className.includes('event')) {
-    return null;
+    return;
   }
   const eventId =
     targetObj.className === 'event'
@@ -17,8 +17,7 @@ function handleEventClick(event) {
 
   setItem('eventIdToDelete', eventId);
   openPopup(event.pageX, event.pageY);
-  return null;
-}
+};
 
 const createEventElement = event => {
   const { dateFrom, dateTo, id, title, description } = event;
@@ -55,9 +54,8 @@ const createEventElement = event => {
 export const renderEvents = () => {
   const timeSlotsElements = Array.from(document.querySelectorAll('.calendar__time-slot'));
   timeSlotsElements.forEach(slot => {
-    while (slot.firstChild) {
-      slot.removeChild(slot.firstChild);
-    }
+    // eslint-disable-next-line no-param-reassign
+    slot.innerHTML = '';
   });
 
   const eventList = getItem('events') || [];
@@ -80,9 +78,5 @@ export const renderEvents = () => {
   });
 };
 
-const onStorageChange = () => {
-  renderEvents();
-};
-
-window.addEventListener('storage', onStorageChange);
+window.addEventListener('storage', renderEvents);
 weekElem.addEventListener('click', handleEventClick);
