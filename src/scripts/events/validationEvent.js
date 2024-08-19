@@ -1,13 +1,18 @@
-import { getItem } from '../common/storage.js';
+import { getEventsListsFromDB } from '../common/gateways.js';
 
 const isToday = dateString => {
   const today = new Date().toLocaleDateString();
   return new Date(dateString).toLocaleDateString() === today;
 };
 
-const getFilterEvents = () => {
-  const eventList = getItem('events') || [];
-  return eventList.filter(event => isToday(event.dateFrom));
+const getFilterEvents = async () => {
+  try {
+    const eventList = await getEventsListsFromDB();
+    return eventList.filter(event => isToday(event.dateFrom));
+  } catch (err) {
+    console.error(`Error loading events: ${err.message}`);
+    return [];
+  }
 };
 
 const validateEventDuration = (start, end) => {
@@ -48,8 +53,8 @@ const displayErrors = errors => {
   }
 };
 
-export const validateEvent = newEvent => {
-  const existingEvents = getFilterEvents();
+export const validateEvent = async newEvent => {
+  const existingEvents = await getFilterEvents();
   const newEventStart = new Date(newEvent.dateFrom).getTime();
   const newEventEnd = new Date(newEvent.dateTo).getTime();
 

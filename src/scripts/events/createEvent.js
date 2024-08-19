@@ -1,7 +1,7 @@
 import { setItem, getItem } from '../common/storage.js';
 import { renderEvents } from './events.js';
 import { closeModal } from '../common/modal.js';
-import { createEventInDB, getEventsListsFromDB, updateEventInDB } from '../common/gateways.js';
+import { createEventInDB, updateEventInDB } from '../common/gateways.js';
 import { getDateTime } from '../common/utils.js';
 import { validateEvent } from './validationEvent.js';
 
@@ -25,7 +25,8 @@ const onCloseEventForm = () => {
 
 const onCreateEvent = async formData => {
   const newObj = createNewEventObj(formData);
-  if (!validateEvent(newObj)) {
+  const isValidEvent = await validateEvent(newObj);
+  if (!isValidEvent) {
     return;
   }
 
@@ -33,8 +34,6 @@ const onCreateEvent = async formData => {
     const operation = newObj.id ? updateEventInDB(newObj.id, newObj) : createEventInDB(newObj);
     await operation;
 
-    const list = await getEventsListsFromDB();
-    setItem('events', list);
     onCloseEventForm();
     renderEvents();
   } catch (err) {

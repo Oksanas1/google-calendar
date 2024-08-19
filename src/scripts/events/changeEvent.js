@@ -1,17 +1,8 @@
 import { getItem, setItem } from '../common/storage.js';
 import { closePopup } from '../common/popup.js';
-import { deletEventInDB, getEventsListsFromDB } from '../common/gateways.js';
+import { deletEventInDB, getEventByIdFromDB } from '../common/gateways.js';
 import { openModal } from '../common/modal.js';
 import { renderEvents } from './events.js';
-
-const replacingEventFromStoregeWithDB = () => {
-  getEventsListsFromDB().then(list => {
-    setItem('events', list);
-    setItem('eventIdToDelete', '');
-    closePopup();
-    renderEvents();
-  });
-};
 
 const canBeChangeEvent = dateTo => {
   const currentTime = new Date();
@@ -24,40 +15,48 @@ const canBeChangeEvent = dateTo => {
   return true;
 };
 
-const onDeleteEvent = async () => {
-  const eventIdToDelete = getItem('eventIdToDelete');
-  const event = getItem('events').find(event => event.id === eventIdToDelete);
-
-  if (!canBeChangeEvent(new Date(event.dateTo))) {
-    setItem('eventIdToDelete', '');
-    return;
-  }
-
+const onDeleteEvent = async eventIdToDelete => {
   try {
     await deletEventInDB(eventIdToDelete);
-    replacingEventFromStoregeWithDB();
+    setItem('eventIdToDelete', '');
+    closePopup();
+    renderEvents();
   } catch (err) {
     console.err(err.message);
   }
 };
 
-const onChangeEvent = () => {
-  const eventIdToChange = getItem('eventIdToDelete');
-  const event = getItem('events').find(event => event.id === eventIdToChange);
-
-  if (!canBeChangeEvent(event.dateTo)) {
-    setItem('eventIdToDelete', '');
-    return;
-  }
-
+const onChangeEvent = event => {
   closePopup();
   openModal(event);
 };
 
-export const updateEvents = () => {
-  const changeEventBtn = document.querySelector('.update-event-btn');
-  changeEventBtn.addEventListener('click', onChangeEvent);
+const onToggleChangeEvent = async e => {
+  const eventIdToDelete = getItem('eventIdToDelete');
+  let event;
 
-  const deleteEventBtn = document.querySelector('.delete-event-btn');
-  deleteEventBtn.addEventListener('click', onDeleteEvent);
+  try {
+    event = await getEventByIdFromDB(eventIdToDelete);
+  } catch (err) {
+    console.error(err);
+    closePopup();
+    return;
+  }
+
+  if (!canBeChangeEvent(new Date(event.dateTo))) {
+    setItem('eventIdToDelete', '');
+    closePopup();
+    return;
+  }
+
+  if (e.target.classList.contains('update-event-btn')) {
+    onChangeEvent(event);
+  } else {
+    onDeleteEvent(eventIdToDelete);
+  }
+};
+
+export const updateEvents = () => {
+  const popupBtnElements = Array.from(document.querySelectorAll('.popup__button'));
+  popupBtnElements.forEach(popupBtn => popupBtn.addEventListener('click', onToggleChangeEvent));
 };

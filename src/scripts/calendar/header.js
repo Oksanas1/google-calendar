@@ -3,7 +3,7 @@ import { generateWeekRange } from '../common/utils.js';
 import { openModal } from '../common/modal.js';
 import activeTimeScale from '../common/activeTimeScale.js';
 
-const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+const daysOfWeek = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 const calendarHeaderElement = document.querySelector('.calendar__header');
 const createNewEventsButtonElement = document.querySelector('.create-event-btn');
 
@@ -31,7 +31,8 @@ const createNameOfDayElement = (nameOfDay, dayOfWeek) => {
 };
 
 export const renderHeader = () => {
-  const numberOfDaysOfWeek = generateWeekRange(getItem('displayedWeekStart'));
+  const dateOfStartWeek = getItem('displayedWeekStart');
+  const numberOfDaysOfWeek = generateWeekRange(dateOfStartWeek);
   const timeZone = new Date().toString().match(/([A-Z]+[+-][0-9]{2})/)[1];
 
   calendarHeaderElement.innerHTML =

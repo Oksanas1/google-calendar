@@ -1,6 +1,7 @@
 import { getItem, setItem } from '../common/storage.js';
 import { openPopup } from '../common/popup.js';
 import shmoment from '../common/shmoment.js';
+import { getEventsListsFromDB } from '../common/gateways.js';
 
 const weekElem = document.querySelector('.calendar__week');
 
@@ -51,14 +52,24 @@ const createEventElement = event => {
   return newEventElement;
 };
 
-export const renderEvents = () => {
+export const renderEvents = async () => {
+  let eventList = [];
+  try {
+    eventList = await getEventsListsFromDB();
+  } catch (err) {
+    console.error(`Error loading events: ${err.message}`);
+  }
+
+  if (eventList.length === 0) {
+    return;
+  }
+
   const timeSlotsElements = Array.from(document.querySelectorAll('.calendar__time-slot'));
   timeSlotsElements.forEach(slot => {
     // eslint-disable-next-line no-param-reassign
     slot.innerHTML = '';
   });
 
-  const eventList = getItem('events') || [];
   const startWeekDay = new Date(getItem('displayedWeekStart'));
   const endWeekDay = shmoment(startWeekDay).add('days', 7).result();
 
@@ -78,5 +89,4 @@ export const renderEvents = () => {
   });
 };
 
-window.addEventListener('storage', renderEvents);
 weekElem.addEventListener('click', handleEventClick);
