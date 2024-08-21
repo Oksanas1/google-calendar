@@ -4,6 +4,7 @@ import shmoment from '../common/shmoment.js';
 import { getEventsListsFromDB } from '../common/gateways.js';
 
 const weekElem = document.querySelector('.calendar__week');
+export const globalEventLists = [];
 
 const handleEventClick = event => {
   const targetObj = event.target;
@@ -53,14 +54,14 @@ const createEventElement = event => {
 };
 
 export const renderEvents = async () => {
-  let eventList = [];
   try {
-    eventList = await getEventsListsFromDB();
+    globalEventLists.length = 0;
+    globalEventLists.push(...(await getEventsListsFromDB()));
   } catch (err) {
     console.error(`Error loading events: ${err.message}`);
   }
 
-  if (eventList.length === 0) {
+  if (globalEventLists.length === 0) {
     return;
   }
 
@@ -73,7 +74,7 @@ export const renderEvents = async () => {
   const startWeekDay = new Date(getItem('displayedWeekStart'));
   const endWeekDay = shmoment(startWeekDay).add('days', 7).result();
 
-  const eventsThisWeek = eventList.filter(event => {
+  const eventsThisWeek = globalEventLists.filter(event => {
     const eventStart = new Date(event.dateFrom);
     return eventStart >= startWeekDay && eventStart < endWeekDay;
   });

@@ -10,9 +10,9 @@ const createTimeElement = number => {
 
 export const renderTimescale = () => {
   const timeNumbers = createNumbersArray(1, 24);
-  const calndarTimeScaleElement = document.querySelector('.calendar__time-scale');
+  const calendarTimeScaleElement = document.querySelector('.calendar__time-scale');
 
-  calndarTimeScaleElement.innerHTML = timeNumbers.reduce(
+  calendarTimeScaleElement.innerHTML = timeNumbers.reduce(
     (acc, curr) => acc + createTimeElement(curr),
     '',
   );

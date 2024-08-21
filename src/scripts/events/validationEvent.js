@@ -1,4 +1,5 @@
 import { getEventsListsFromDB } from '../common/gateways.js';
+import { globalEventLists } from './events.js';
 
 const isToday = dateString => {
   const today = new Date().toLocaleDateString();
@@ -47,14 +48,8 @@ const checkForOverlaps = (newEvent, existingEvents) => {
   return isOverlapping ? ['Events cannot overlap.'] : [];
 };
 
-const displayErrors = errors => {
-  if (errors.length > 0) {
-    alert(errors.join('\n'));
-  }
-};
-
 export const validateEvent = async newEvent => {
-  const existingEvents = await getFilterEvents();
+  const existingEvents = globalEventLists;
   const newEventStart = new Date(newEvent.dateFrom).getTime();
   const newEventEnd = new Date(newEvent.dateTo).getTime();
 
@@ -63,7 +58,9 @@ export const validateEvent = async newEvent => {
     ...checkForOverlaps(newEvent, existingEvents),
   ];
 
-  displayErrors(errors);
+  if (errors.length > 0) {
+    alert(errors.join('\n'));
+  }
 
   return errors.length === 0;
 };
