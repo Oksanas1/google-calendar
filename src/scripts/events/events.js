@@ -53,18 +53,7 @@ const createEventElement = event => {
   return newEventElement;
 };
 
-export const renderEvents = async () => {
-  try {
-    globalEventLists.length = 0;
-    globalEventLists.push(...(await getEventsListsFromDB()));
-  } catch (err) {
-    console.error(`Error loading events: ${err.message}`);
-  }
-
-  if (globalEventLists.length === 0) {
-    return;
-  }
-
+export const renderEvents = () => {
   const timeSlotsElements = Array.from(document.querySelectorAll('.calendar__time-slot'));
   timeSlotsElements.forEach(slot => {
     // eslint-disable-next-line no-param-reassign
@@ -88,6 +77,22 @@ export const renderEvents = async () => {
       timeSlotElement.append(createEventElement(event));
     }
   });
+};
+
+const savedEventsList = async () => {
+  try {
+    globalEventLists.length = 0;
+    globalEventLists.push(...(await getEventsListsFromDB()));
+  } catch (err) {
+    console.error(`Error loading events: ${err.message}`);
+  }
+};
+
+export const loadAndRenderEvents = async () => {
+  await savedEventsList();
+  if (globalEventLists.length > 0) {
+    renderEvents();
+  }
 };
 
 weekElem.addEventListener('click', handleEventClick);

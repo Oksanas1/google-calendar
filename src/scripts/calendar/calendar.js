@@ -1,6 +1,6 @@
 import { getItem } from '../common/storage.js';
 import { generateWeekRange, createNumbersArray } from '../common/utils.js';
-import { renderEvents } from '../events/events.js';
+import { globalEventLists, loadAndRenderEvents, renderEvents } from '../events/events.js';
 
 const generateDay = () => {
   const timeNumbers = createNumbersArray(0, 23);
@@ -26,5 +26,9 @@ export const renderWeek = () => {
     '',
   );
 
-  renderEvents();
+  if (globalEventLists.length > 0) {
+    renderEvents();
+  } else {
+    loadAndRenderEvents();
+  }
 };

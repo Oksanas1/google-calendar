@@ -1,20 +1,4 @@
-import { getEventsListsFromDB } from '../common/gateways.js';
 import { globalEventLists } from './events.js';
-
-const isToday = dateString => {
-  const today = new Date().toLocaleDateString();
-  return new Date(dateString).toLocaleDateString() === today;
-};
-
-const getFilterEvents = async () => {
-  try {
-    const eventList = await getEventsListsFromDB();
-    return eventList.filter(event => isToday(event.dateFrom));
-  } catch (err) {
-    console.error(`Error loading events: ${err.message}`);
-    return [];
-  }
-};
 
 const validateEventDuration = (start, end) => {
   const eventDurationMinutes = (end - start) / 60000;

@@ -2,7 +2,7 @@ import { getItem, setItem } from '../common/storage.js';
 import { closePopup } from '../common/popup.js';
 import { deletEventInDB, getEventByIdFromDB } from '../common/gateways.js';
 import { openModal } from '../common/modal.js';
-import { renderEvents } from './events.js';
+import { loadAndRenderEvents } from './events.js';
 
 const canBeChangeEvent = dateTo => {
   const currentTime = new Date();
@@ -20,7 +20,7 @@ const onDeleteEvent = async eventIdToDelete => {
     await deletEventInDB(eventIdToDelete);
     setItem('eventIdToDelete', '');
     closePopup();
-    renderEvents();
+    loadAndRenderEvents();
   } catch (err) {
     console.err(err.message);
   }
