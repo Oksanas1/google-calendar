@@ -1,5 +1,5 @@
 import { setItem, getItem } from '../common/storage.js';
-import { loadAndRenderEvents } from './events.js';
+import { savedAndRenderEventsList } from './events.js';
 import { closeModal } from '../common/modal.js';
 import { createEventInDB, updateEventInDB } from '../common/gateways.js';
 import { getDateTime } from '../common/utils.js';
@@ -35,7 +35,7 @@ const onCreateEvent = async formData => {
     await operation;
 
     onCloseEventForm();
-    loadAndRenderEvents();
+    savedAndRenderEventsList();
   } catch (err) {
     console.error(err.message);
   }

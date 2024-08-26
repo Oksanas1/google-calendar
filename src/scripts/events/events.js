@@ -54,6 +54,9 @@ const createEventElement = event => {
 };
 
 export const renderEvents = () => {
+  if (globalEventLists.length === 0) {
+    return;
+  }
   const timeSlotsElements = Array.from(document.querySelectorAll('.calendar__time-slot'));
   timeSlotsElements.forEach(slot => {
     // eslint-disable-next-line no-param-reassign
@@ -79,19 +82,14 @@ export const renderEvents = () => {
   });
 };
 
-const savedEventsList = async () => {
+export const savedAndRenderEventsList = async () => {
   try {
+    const data = await getEventsListsFromDB();
     globalEventLists.length = 0;
-    globalEventLists.push(...(await getEventsListsFromDB()));
+    globalEventLists.push(...data);
+    renderEvents();
   } catch (err) {
     console.error(`Error loading events: ${err.message}`);
-  }
-};
-
-export const loadAndRenderEvents = async () => {
-  await savedEventsList();
-  if (globalEventLists.length > 0) {
-    renderEvents();
   }
 };
 
