@@ -12,7 +12,7 @@ const fillForm = event => {
   const startEvent = new Date(event.dateFrom || Date.now());
   const endEvent = event.dateTo
     ? new Date(event.dateTo)
-    : shmoment(startEvent).add('minutes', 15).result();
+    : shmoment(startEvent).add('hours', 1).result();
 
   const eventDay = startEvent
     .toLocaleDateString('en-GB')
