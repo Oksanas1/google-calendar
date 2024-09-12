@@ -57,14 +57,5 @@ export const getDisplayedMonth = date => {
     : `${monthsNames[startMonth]} ${startYear} - ${monthsNames[endMonth]} ${endYear}`;
 };
 
-export const createNumbersArray = (from, to) => {
-  const numbers = [];
-  let count = from;
-
-  while (count <= to) {
-    numbers.push(count);
-    count += 1;
-  }
-
-  return numbers;
-};
+export const createNumbersArray = (from, to) =>
+  Array.from({ length: to - from + 1 }, (_, index) => from + index);
